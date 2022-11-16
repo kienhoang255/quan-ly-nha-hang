@@ -1,0 +1,18 @@
+@use '/src/assets/styles/' as *;
+
+.content {
+    height: 35px;
+    width: auto;
+    border-radius: 6px;
+    padding: 0 12px;
+    background-color: $primaryColor;
+    @include center;
+}
+
+.warn {
+    background-color: $warningColor;
+}
+
+.danger {
+    background-color: $dangerColor;
+}

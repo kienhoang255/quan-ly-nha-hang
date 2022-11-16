@@ -1,0 +1,123 @@
+@use '../styles/colors' as *;
+
+@mixin mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin window {
+    @media screen and (max-width: 1200px) {
+        @content;
+    }
+}
+
+//font
+@mixin fontNormal($size: 1.25rem, $weight: 500, $height: 1.2, $color: $fontColor) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $height;
+    color: $color;
+}
+
+@mixin fontBold($size: 1.55rem, $weight: 600, $height: 1.5, $color: $fontColor) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $height;
+    color: $color;
+}
+
+@mixin fontSub($size: 0.875rem, $weight: 400, $height: 1.2, $color: $subColor) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $height;
+    color: $color;
+}
+
+//css
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin centerDirection($direction: column) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin flexBottom() {
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+@mixin fullScreen {
+    height: 100vh;
+    width: 100vw;
+}
+
+@mixin fullScreenCenter($Direction: column) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: $Direction;
+    height: 100vh;
+    width: 100vw;
+}
+
+@mixin btn($cursor: pointer, $text-l: center, $outline: none, $border: none, $border-radius: 0px) {
+    cursor: $cursor;
+    text-align: $text-l;
+    outline: $outline;
+    border: $border;
+    border-radius: $border-radius;
+    &:hover {
+        opacity: 0.8;
+    }
+    &:active {
+        opacity: 0.7;
+    }
+}
+
+@mixin border(
+    $color: $borderColor,
+    $border: 1px solid $color,
+    $radius: 5px,
+    $top: true,
+    $bottom: false,
+    $right: false,
+    $left: false
+) {
+    border-radius: $radius;
+    @if $top or $bottom or $left or $right {
+        border: none;
+    }
+    @if $top {
+        border-top: $border;
+    }
+    @if $bottom {
+        border-bottom: $border;
+    }
+    @if $left {
+        border-left: $border;
+    }
+    @if $right {
+        border-right: $border;
+    } @else {
+        border: $border;
+    }
+}
+
+@mixin clamp {
+    //NEED LEARN
+}

@@ -1,0 +1,50 @@
+@use '../../assets/styles' as *;
+
+.container {
+    background-color: $secondaryBgColor;
+    @include fullScreen;
+    @include centerDirection(column);
+}
+
+.msg {
+    padding: 20px;
+    color: #fff;
+    line-height: 10px;
+}
+
+.msg-link {
+    color: $primaryColor;
+}
+
+.content {
+    background-color: $primaryBgColor;
+    width: 440px;
+    height: 480px;
+    padding: 50px;
+
+    @include centerDirection;
+    justify-content: space-between;
+}
+
+.feature {
+    display: flex;
+    align-self: start;
+    align-items: center;
+    color: #fff;
+    input {
+        margin: 0 10px 0 0;
+        // padding: 10px;
+    }
+}
+
+.text {
+    div {
+        color: $primaryColor;
+    }
+    input {
+        @include border;
+    }
+    input:focus {
+        border: 1px solid $primaryColor;
+    }
+}

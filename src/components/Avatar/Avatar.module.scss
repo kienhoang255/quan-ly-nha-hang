@@ -1,0 +1,35 @@
+@use '../../assets/styles' as *;
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.big {
+    margin-top: 40px;
+    width: 250px;
+    height: 250px;
+}
+
+.setting {
+    position: relative;
+    &:hover {
+        opacity: 0.8;
+        &::before {
+            position: absolute;
+            left: 50%;
+            bottom: 40%;
+            transform: translate(-50%, -50%);
+            content: 'Chỉnh sửa';
+            color: #fff;
+            background-color: transparent;
+        }
+    }
+    &:active {
+        opacity: 0.6;
+    }
+}

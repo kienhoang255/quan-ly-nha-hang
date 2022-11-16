@@ -1,0 +1,127 @@
+@use '../../assets//styles' as *;
+
+$distance: 0px;
+$radius: 10px;
+.content {
+    position: absolute;
+    background-color: white;
+    width: 300px;
+    height: 60px;
+    margin: 20px;
+    @include border($radius: $radius);
+    @include centerDirection(row);
+
+    &.bottom-left {
+        bottom: $distance + 20px;
+        left: $distance;
+        animation: slideInRight ease 1s, fadeOut linear 1s 5s forwards;
+    }
+    &.bottom-right {
+        bottom: $distance;
+        right: $distance;
+        animation: slideInLeft ease 1s, fadeOut linear 1s 5s forwards;
+    }
+    &.top-left {
+        top: $distance;
+        left: $distance;
+        animation: slideInRight ease 1s, fadeOut linear 1s 5s forwards;
+    }
+    &.top-right {
+        top: $distance;
+        right: $distance;
+        animation: slideInLeft ease 1s, fadeOut linear 1s 5s forwards;
+    }
+
+    &.success {
+        @include border($radius: $radius, $color: $successColor);
+    }
+    &.warning {
+        @include border($radius: $radius, $color: $warningColor);
+    }
+    &.error {
+        @include border($radius: $radius, $color: $dangerColor);
+    }
+    &.info {
+        @include border($radius: $radius, $color: $infoColor);
+    }
+    &.loading {
+        @extend .info;
+    }
+}
+
+.blank {
+    position: absolute;
+    height: 100%;
+    width: 8px;
+    left: 0;
+    z-index: 1;
+    border-radius: 8px 0 0 8px;
+
+    &.success {
+        background-color: $successColor;
+        border-top: 1px solid $successColor;
+    }
+
+    &.warning {
+        border-top: 1px solid $warningColor;
+        background-color: $warningColor;
+    }
+
+    &.error {
+        border-top: 1px solid $dangerColor;
+        background-color: $dangerColor;
+    }
+    &.info {
+        border-top: 1px solid $infoColor;
+        background-color: $infoColor;
+    }
+    &.loading {
+        @extend .info;
+    }
+}
+
+.icon {
+    &.success {
+        color: $successColor;
+    }
+    &.warning {
+        color: $warningColor;
+    }
+    &.error {
+        color: $dangerColor;
+    }
+    &.info {
+        color: $infoColor;
+    }
+    &.loading {
+        @extend .info;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        // opacity: 0;
+        transform: translateX(calc(100% + 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        // opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}

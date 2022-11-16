@@ -1,0 +1,98 @@
+@use '../../assets/styles' as *;
+
+.container {
+    @include fullScreen;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    background-color: $secondaryBgColor;
+}
+
+.nav-bar {
+    grid-column: span 2;
+    background-color: $primaryBgColor;
+    @include centerDirection(row-reverse);
+    justify-content: space-between;
+    position: relative;
+    color: #fff;
+    padding: 30px;
+
+    &-right {
+        @include centerDirection(row-reverse);
+        gap: 40px;
+        font-size: 25px;
+    }
+    &-left {
+        @include centerDirection(row);
+        gap: 10px;
+    }
+    &-btn {
+        @include centerDirection;
+        font-size: 25px;
+    }
+}
+
+.rotate {
+    animation: rotateTo 0.2s linear forwards;
+}
+
+.rotated {
+    animation: rotateBack 0.1s linear forwards;
+}
+
+.text-input {
+    width: 400px;
+    > div {
+        color: black;
+        font-size: 20px;
+    }
+}
+
+.side-bar {
+    background-color: $primaryBgColor;
+    display: none;
+    &-content {
+        @include centerDirection(column);
+    }
+}
+
+.btn {
+    height: 60px;
+    font-size: 30px;
+}
+
+.openSideBar {
+    animation: showSideBar 0.2s linear;
+    display: block;
+}
+
+.content {
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+@keyframes showSideBar {
+    to {
+        width: 100%;
+    }
+    from {
+        width: 0%;
+    }
+}
+
+@keyframes rotateTo {
+    to {
+        transform: rotate(90deg);
+    }
+    from {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes rotateBack {
+    to {
+        transform: rotate(0deg);
+    }
+    from {
+        transform: rotate(90deg);
+    }
+}

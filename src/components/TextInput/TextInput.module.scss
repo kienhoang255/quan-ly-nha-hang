@@ -1,0 +1,42 @@
+@use '/src/assets/styles/' as *;
+
+.container {
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+}
+
+.title {
+    @include fontNormal;
+    padding: 4px 0;
+    color: $primaryColor;
+}
+
+.content {
+    @include center;
+    position: relative;
+}
+
+.rightIcon {
+    @include center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 15px;
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.leftIcon {
+    @extend .rightIcon;
+    left: 15px;
+}
+
+.input-text {
+    width: calc(100% - 20px * 2);
+    padding: 5px 40px;
+    height: 28px;
+    outline: none;
+    @include border;
+}

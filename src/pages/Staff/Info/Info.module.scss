@@ -1,0 +1,84 @@
+@use '../../../assets/styles' as *;
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr 90px;
+    height: 100%;
+    background-color: $secondaryBgColor;
+}
+
+.main {
+    background-color: $secondaryBgColor;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    &-avatar {
+        gap: 20px;
+        width: 95%;
+        height: 95%;
+        justify-self: flex-end;
+        align-self: flex-end;
+        background-color: $primaryBgColor;
+        @include centerDirection(column);
+        justify-content: flex-start;
+    }
+    &-info {
+        @extend .main-avatar;
+        justify-self: center;
+        color: $primaryColor;
+
+        &-title {
+            text-transform: uppercase;
+            font-size: 40px;
+            font-weight: bold;
+            padding-top: 40px;
+        }
+        &-content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            > div {
+                justify-self: center;
+            }
+        }
+    }
+}
+
+.check-in {
+    width: 120px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: $successColor;
+    color: #fff;
+    @include center;
+}
+.checkIn {
+    background-color: $dangerColor;
+}
+
+.btn-auto-login {
+    width: 350px;
+    padding: 20px;
+    margin: 20px 20px 20px 40px;
+    justify-self: center;
+    @include btn($border-radius: 8px);
+    background-color: $primaryColor;
+}
+
+.sub {
+    background-color: $secondaryBgColor;
+    @include centerDirection(row);
+    justify-content: space-evenly;
+    &-log {
+        width: 300px;
+        height: 50px;
+        border-radius: 12px;
+        color: $primaryColor;
+    }
+    &-check {
+        width: 300px;
+        height: 50px;
+        border-radius: 12px;
+    }
+}
