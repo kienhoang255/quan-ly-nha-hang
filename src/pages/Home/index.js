@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Toast from '~/components/Toast';
@@ -8,7 +9,14 @@ export default function Home() {
     const handleOnClick = () => {};
     // console.log(isRequiredStaff());
     const isLogin = document.cookie !== '';
-    console.log(isLogin);
+    // console.log(isLogin);
+    const dateTime = new Date();
+    // console.log(dateTime.getDay());
+
+    const date = moment(dateTime).format('DD MM YY');
+    const hour = moment(dateTime).format('HH');
+    console.log(hour);
+    console.log(date);
     return (
         <div>
             <Link to="/resigter">Resigter</Link>
