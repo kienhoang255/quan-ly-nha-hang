@@ -6,7 +6,7 @@ import TextInput from '~/components/TextInput/TextInput';
 import Logo from '~/components/Logo/Logo';
 import isEmpty from '~/validation/isEmpty';
 import isEmail from '~/validation/isEmail';
-import { resigter } from '~/services/resigter';
+import { resigter } from '~/services/users';
 import { Link } from 'react-router-dom';
 import Toast from '~/components/Toast';
 

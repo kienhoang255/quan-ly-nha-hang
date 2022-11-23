@@ -5,20 +5,20 @@ import ButtonInput from '~/components/ButtonInput/ButtonInput';
 import TextInput from '~/components/TextInput/TextInput';
 import Logo from '~/components/Logo/Logo';
 import { useStore } from '~/store';
-import { login } from '~/services/login';
+import { login } from '~/services/users';
 import Toast from '~/components/Toast';
 import isEmpty from '~/validation/isEmpty';
 import isEmail from '~/validation/isEmail';
-import { Link, useNavigate } from 'react-router-dom';
-import { isRequiredStaff } from '~/utils/specialRoute';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 export default function Login() {
+    const [showToast, setShowToast] = useState(false);
     const [state, dispatch] = useStore();
 
     const [email, setEmail] = useState({
-        type: 'email',
+        type: 'text',
         name: 'email',
         title: 'Email',
         value: '',
@@ -33,7 +33,7 @@ export default function Login() {
     });
 
     const navigate = useNavigate();
-    const from = isRequiredStaff() ? '/info' : '/';
+    const from = '/home';
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -52,8 +52,12 @@ export default function Login() {
         else setPassword({ ...password, messageErr: '' });
 
         if (isEmptyEmail && isEmptyPassword && isCorrectEmail) {
-            login(dispatch, passForm);
-            navigate(from, { replace: true });
+            login(passForm, dispatch);
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+                navigate(from, { replace: true });
+            }, 3000);
         }
     };
 
@@ -79,13 +83,7 @@ export default function Login() {
 
                 <ButtonInput value={'Đăng nhập'} />
             </form>
-            <div className={cx('msg')}>
-                Don't have an account ?{' '}
-                <Link className={cx('msg-link')} to="/resigter">
-                    {' '}
-                    Here
-                </Link>
-            </div>
+            {showToast && <Toast message={state.MESSAGE.message} type={state.MESSAGE.type} />}
         </div>
     );
 }

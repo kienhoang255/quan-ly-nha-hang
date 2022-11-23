@@ -11,25 +11,11 @@ $radius: 10px;
     @include border($radius: $radius);
     @include centerDirection(row);
 
-    &.bottom-left {
-        bottom: $distance + 20px;
-        left: $distance;
-        animation: slideInRight ease 1s, fadeOut linear 1s 5s forwards;
-    }
-    &.bottom-right {
-        bottom: $distance;
-        right: $distance;
-        animation: slideInLeft ease 1s, fadeOut linear 1s 5s forwards;
-    }
-    &.top-left {
-        top: $distance;
-        left: $distance;
-        animation: slideInRight ease 1s, fadeOut linear 1s 5s forwards;
-    }
-    &.top-right {
-        top: $distance;
-        right: $distance;
-        animation: slideInLeft ease 1s, fadeOut linear 1s 5s forwards;
+    &.top-mid {
+        top: $distance + 10px;
+        left: auto;
+        right: auto;
+        animation: slideDown ease 1s, slideUp linear 1s 2s forwards;
     }
 
     &.success {
@@ -98,25 +84,23 @@ $radius: 10px;
     }
 }
 
-@keyframes slideInLeft {
+@keyframes slideDown {
     from {
-        // opacity: 0;
-        transform: translateX(calc(100% + 20px));
+        transform: translateY(-100%);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
-@keyframes slideInRight {
+@keyframes slideUp {
     from {
-        // opacity: 0;
-        transform: translateX(-100%);
+        transform: translateY(0);
     }
     to {
-        opacity: 1;
-        transform: translateX(0);
+        opacity: 0;
+        transform: translateY(-100%);
     }
 }
 

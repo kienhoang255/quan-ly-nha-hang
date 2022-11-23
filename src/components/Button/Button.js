@@ -6,7 +6,7 @@ import Tippy from '@tippyjs/react';
 
 const cx = classNames.bind(styles);
 
-const Button = ({ children, variant, full, zoom, to, className, notify, ...props }) => {
+const Button = ({ children, variant = 'normal', full, zoom, to, className, notify, ...props }) => {
     let Comp = 'button';
     if (to) {
         props.to = to;

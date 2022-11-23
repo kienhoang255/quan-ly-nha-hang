@@ -10,6 +10,11 @@
     @include fontNormal;
     padding: 4px 0;
     color: $primaryColor;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include window {
+        font-size: 16px;
+    }
 }
 
 .content {

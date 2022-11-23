@@ -1,11 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { isRequiredStaff } from '~/utils/specialRoute';
 import React from 'react';
 
-const IsLogged = () => {
-    const isLogin = document.cookie !== '';
+export const ProtectRoute = () => {
+    const isLogin = document.cookie === '';
 
-    return <>{isLogin ? <Navigate to={isRequiredStaff() ? '/info' : '/'} /> : <Outlet />}</>;
+    return <>{isLogin ? <Navigate to="/" /> : <Outlet />}</>;
 };
 
-export default IsLogged;
+export const IsLogged = () => {
+    const isLogin = document.cookie === '';
+
+    return <>{isLogin ? <Outlet /> : <Navigate to="/home" />}</>;
+};

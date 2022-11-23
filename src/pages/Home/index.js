@@ -2,21 +2,24 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Toast from '~/components/Toast';
+import { headers } from '~/services';
+import { test } from '~/services/users';
 import { isRequiredStaff } from '~/utils/specialRoute';
 
 export default function Home() {
     const [state, setState] = useState(false);
-    const handleOnClick = () => {};
+    const handleOnClick = () => {
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        console.log('click');
+    };
+    const isLogin = document.cookie;
+
     // console.log(isRequiredStaff());
-    const isLogin = document.cookie !== '';
-    // console.log(isLogin);
+    console.log(isLogin);
     const dateTime = new Date();
     // console.log(dateTime.getDay());
-
-    const date = moment(dateTime).format('DD MM YY');
-    const hour = moment(dateTime).format('HH');
-    console.log(hour);
-    console.log(date);
+    // test();
+    // console.log(headers);
     return (
         <div>
             <Link to="/resigter">Resigter</Link>

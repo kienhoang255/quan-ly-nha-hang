@@ -9,7 +9,7 @@ import { RiErrorWarningFill } from 'react-icons/ri';
 
 const cx = classNames.bind(styles);
 
-const Toast = ({ trigger, message, placement = 'top-right', duration = 3000, type = 'success' }) => {
+const Toast = ({ trigger, message, placement = 'top-mid', duration = 3000, type = 'success' }) => {
     const [isTrigger, setIsTrigger] = useState(true);
     const icon = [
         {

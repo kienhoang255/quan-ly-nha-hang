@@ -14,5 +14,23 @@ export default function ButtonInput({ value, onClick, className, type = 'submit'
         [className]: className,
     });
 
-    return <input type={type} className={classes} value={value} {...props} />;
+    return (
+        <>
+            {type === 'file' ? (
+                <div className={classes}>
+                    <span for="avatar">{value}</span>
+                    <input
+                        type="file"
+                        id="avatar"
+                        name="avatar"
+                        accept="image/png, image/jpeg"
+                        {...props}
+                        style={{ display: 'none' }}
+                    />
+                </div>
+            ) : (
+                <input type={type} className={classes} value={value} {...props} />
+            )}
+        </>
+    );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './StaffLayout.module.scss';
 
@@ -9,43 +9,66 @@ import Button from '~/components/Button/Button';
 
 import { IoNotifications } from 'react-icons/io5';
 import { RiMessageFill } from 'react-icons/ri';
-import { AiOutlineSearch, AiOutlineTable } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { FaBars } from 'react-icons/fa';
-import { MdFastfood, MdOutlineRoomService, MdPeopleAlt } from 'react-icons/md';
+import { Link, Outlet } from 'react-router-dom';
+import { getToLocalStorage } from '~/utils/saveToBrowser';
+import { useStore } from '~/store';
 
 const cx = classNames.bind(styles);
 
-const StaffLayout = ({ children, roles }) => {
+const StaffLayout = () => {
+    const [state] = useStore();
     const [isSideBar, setIsSideBar] = useState(false);
     const HandleOpenSideBar = () => {
         setIsSideBar(!isSideBar);
     };
 
-    const allowedFunction = [
-        { id: 1000, to: '/order-list', title: <MdFastfood />, notify: 'Danh sách những món ăn đã đặt' },
-        { id: 2000, to: '/list-table', title: <AiOutlineTable />, notify: 'Danh sách bàn' },
-        { id: 3000, to: '/list-employee', title: <MdPeopleAlt />, notify: 'Danh sách nhân viên' },
-        { id: 4000, to: '/order-service', title: <MdOutlineRoomService />, notiy: 'Danh sách phục vụ' },
-    ];
-
     const ROLES = [];
 
+    const isRoles = getToLocalStorage('user')?.job;
     const handleRoleAllow = () => {
-        roles.forEach((role) => {
-            allowedFunction.forEach((aRole) => {
+        isRoles?.forEach((role) => {
+            state.PAGES.forEach((aRole) => {
                 if (role === aRole.id) ROLES.push(aRole);
             });
         });
     };
     handleRoleAllow();
+    const user = getToLocalStorage('user');
+    const data = [
+        {
+            title: 'Oke',
+            main: 'Hop',
+            time: '9h30',
+        },
+        {
+            title: 'Oke',
+            main: 'Hop',
+            time: '9h30',
+        },
+    ];
+
+    const handleOnPage = (e) => {
+        ROLES.forEach((role) => {
+            if (role.id === e.id) {
+                role.active = true;
+            } else {
+                role.active = false;
+            }
+        });
+        setIsSideBar(false);
+    };
 
     return (
-        <div className={cx('container')} style={{ gridTemplateColumns: isSideBar ? '250px 1fr' : '1fr' }}>
+        <div className={cx('container', isSideBar ? 'open-side-bar' : 'close-side-bar')}>
             <div className={cx('nav-bar')}>
                 <div className={cx('nav-bar-right')}>
-                    <Avatar />
-                    <IconNotification icon={<IoNotifications />} />
-                    <IconNotification icon={<RiMessageFill />} />
+                    <Link to="/info" style={{ textDecoration: 'none' }}>
+                        <Avatar name={user?.username} />
+                    </Link>
+                    <IconNotification data={data} icon={<IoNotifications />} />
+                    <IconNotification data={data} icon={<RiMessageFill />} />
                 </div>
                 <div className={cx('nav-bar-left')}>
                     <div onClick={HandleOpenSideBar} className={cx('nav-bar-btn', isSideBar ? 'rotate' : 'rotated')}>
@@ -60,14 +83,25 @@ const StaffLayout = ({ children, roles }) => {
                 <div className={cx('side-bar-content')}>
                     {ROLES.map((role) => {
                         return (
-                            <Button key={role.id} to={role.to} variant={'none'} full className={cx('btn')}>
+                            <Button
+                                key={role.id}
+                                to={role.path}
+                                variant={'none'}
+                                full
+                                className={cx('btn', role.active ? 'active' : '123')}
+                                onClick={() => {
+                                    handleOnPage(role);
+                                }}
+                            >
                                 {role.title}
                             </Button>
                         );
                     })}
                 </div>
             </div>
-            <div className={cx('content')}>{children}</div>
+            <div className={cx('content')}>
+                <Outlet />
+            </div>
         </div>
     );
 };

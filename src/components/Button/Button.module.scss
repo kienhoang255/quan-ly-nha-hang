@@ -22,11 +22,12 @@
 
 .outline {
     @include btn($border-radius: 8px);
-    color: #fff;
+    color: $primaryColor;
     background-color: transparent;
     border: 1px solid $primaryColor;
     &:hover {
         background-color: $bgColor;
+        color: black;
     }
 }
 

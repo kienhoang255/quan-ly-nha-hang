@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './IconNotification.module.scss';
 import { GoPrimitiveDot } from 'react-icons/go';
@@ -9,19 +9,24 @@ const cx = classNames.bind(styles);
 const IconNotification = ({ icon, data }) => {
     const [isWarn, setIsWarn] = useState(true);
     const tippyContent = (
-        <div>
-            <div>
-                <div>title</div>
-                <div>
-                    content <span>20.20</span>
-                </div>
-            </div>
+        <div className={cx('tippy')}>
+            {data?.map((tippy, index) => {
+                return (
+                    <div key={index}>
+                        <div className={cx('tippy-title')}>{tippy?.title}</div>
+                        <div className={cx('tippy-content')}>
+                            <span className={cx('tippy-content-main')}>{tippy?.main}</span>
+                            <span className={cx('tippy-content-time')}>{tippy?.time}</span>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 
-    useEffect(() => {
+    useCallback(() => {
         setIsWarn(true);
-    }, [data]);
+    }, []);
 
     const handleOnLooking = () => {
         setIsWarn(false);

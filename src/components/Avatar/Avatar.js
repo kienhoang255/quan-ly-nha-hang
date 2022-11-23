@@ -3,11 +3,12 @@ import classNames from 'classnames/bind';
 import styles from './Avatar.module.scss';
 const cx = classNames.bind(styles);
 
-const Avatar = ({ img, big, setting, onClick }) => {
+const Avatar = ({ img, big, normal, setting, name, onClick }) => {
     const imgNull = require('~/assets/images/avatar-null.png');
     return (
         <span className={cx('content', { setting })}>
-            <img src={img ? img : imgNull} alt="" className={cx('avatar-circle', { big })} onClick={onClick} />
+            {name && <span className={cx('name')}>{name}</span>}
+            <img src={img ? img : imgNull} alt="" className={cx('avatar-circle', { big, normal })} onClick={onClick} />
         </span>
     );
 };

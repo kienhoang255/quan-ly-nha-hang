@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TextInput.module.scss';
 import PopUp from '../PopUp/PopUp';
@@ -16,7 +16,7 @@ export default function TextInput({
     warn,
     danger,
     required,
-    value,
+    defaultValue,
     placeholder,
     LeftIcon,
     RightIcon,
@@ -54,6 +54,7 @@ export default function TextInput({
                         id={name}
                         placeholder={placeholder}
                         required={required}
+                        defaultValue={defaultValue}
                     />
                     <div className={cx('rightIcon')} onClick={handleOpenPassword}>
                         {isClose ? icon.close : icon.open}
@@ -78,6 +79,7 @@ export default function TextInput({
                                 id={name}
                                 placeholder={placeholder}
                                 required={required}
+                                defaultValue={defaultValue}
                             />
                             <div className={cx('rightIcon')}>{RightIcon}</div>
                         </div>
