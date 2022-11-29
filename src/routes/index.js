@@ -1,21 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Contact from '~/pages/Client/Contact/Contact';
-import Menu from '~/pages/Client/Menu/Menu';
-import Home from '~/pages/Home';
 import Login from '~/pages/Login/Login';
-import Missing from '~/pages/Missing';
 import HomeStaff from '~/pages/Staff/Home';
 import Info from '~/pages/Staff/Info/Info';
 import listEmployee from '~/pages/Staff/ListEmployee/ListEmployee';
 import ListTable from '~/pages/Staff/ListTable/ListTable';
-import { OrderedList } from '~/pages/Staff/OrderedList/OrderedList';
+import Menu from '~/pages/Staff/Menu/Menu';
+import OrderedList from '~/pages/Staff/OrderedList/OrderedList';
 import OrderServices from '~/pages/Staff/OrderServices/OrderServices';
 import { getToLocalStorage } from '~/utils/saveToBrowser';
 
-const publicRoutes = [
-    { path: '/', component: Login },
-    { path: '*', component: Missing },
-];
+const publicRoutes = [{ path: '/', component: Login }];
 
 const PAGES = [
     {

@@ -5,7 +5,7 @@ import { day, headers, hour, minute, month, URL, year } from './index';
 
 export const login = (data, dispatch) => {
     axios
-        .post(`${URL}users/login`, data)
+        .post(`${URL}user/login`, data)
         .then((res) => {
             document.cookie = `token=${res.data.accessToken}`;
             const state = {
@@ -25,13 +25,13 @@ export const login = (data, dispatch) => {
 };
 
 export const resigter = (data) => {
-    axios.post(`${URL}users/create`, data).then((res) => {
+    axios.post(`${URL}user/create`, data).then((res) => {
         console.log(res.data);
     });
 };
 
 export const test = () => {
-    axios.get(`${URL}users/test`, headers).then((res) => {
+    axios.get(`${URL}user/test`, headers).then((res) => {
         console.log(res.data);
     });
 };

@@ -18,6 +18,11 @@
     }
 }
 
+@mixin bigWindow {
+    @media screen and (min-width: 1201px) {
+        @content;
+    }
+}
 //font
 @mixin fontNormal($size: 1.25rem, $weight: 500, $height: 1.2, $color: $fontColor) {
     font-size: $size;
@@ -120,4 +125,16 @@
 
 @mixin clamp {
     //NEED LEARN
+}
+
+@mixin scrollBar($color: gray) {
+    &::-webkit-scrollbar-thumb {
+        background-color: $color;
+        border-radius: 8px;
+        position: absolute;
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
 }

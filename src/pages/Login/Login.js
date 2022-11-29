@@ -57,7 +57,7 @@ export default function Login() {
             setTimeout(() => {
                 setShowToast(false);
                 navigate(from, { replace: true });
-            }, 3000);
+            }, 2000);
         }
     };
 

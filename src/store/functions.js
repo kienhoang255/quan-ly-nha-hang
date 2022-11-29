@@ -20,3 +20,8 @@ export const setEmployee = (state, payload) => {
     const newState = { ...state, EMPLOYEE: payload };
     return newState;
 };
+
+export const setTableServing = (state, payload) => {
+    const newState = { ...state, TABLESERVING: payload };
+    return newState;
+};

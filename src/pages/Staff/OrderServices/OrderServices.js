@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ContentLayout from '~/layout/ContentLayout/ContentLayout';
 
 const OrderServices = () => {
-    return <div style={{ color: 'white' }}>OrderServices</div>;
+    useEffect(() => {
+        document.title = 'Order Services';
+    });
+    return <ContentLayout title="Order Services">OrderServices</ContentLayout>;
 };
 
 export default OrderServices;

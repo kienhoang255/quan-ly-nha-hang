@@ -1,0 +1,71 @@
+@use '../../assets/styles/' as *;
+
+$padding: 10px;
+$height: 380px;
+$width: 330px;
+$border-radius: 10px;
+
+.content {
+    width: $width;
+    height: $height;
+    background-color: $primaryBgColor;
+    border-radius: $border-radius;
+    @include centerDirection;
+    justify-content: space-between;
+    @include window {
+        width: calc($width - 50px);
+        height: calc($height - 25px);
+    }
+}
+
+.food-img {
+}
+
+.img {
+    border-radius: $border-radius $border-radius 0 0;
+    width: $width;
+    height: calc($height / 1.4);
+    object-fit: cover;
+    @include window {
+        width: calc($width - 50px);
+        height: calc(($height - 25px) / 1.4);
+    }
+}
+
+.title {
+    position: relative;
+    margin: 0px 10px 10px 10px;
+    color: $primaryColor;
+    align-self: flex-start;
+    font-size: 22px;
+    @include window {
+        font-size: 18px;
+    }
+}
+
+.food-name {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.food-status {
+    color: $primaryColor;
+    position: absolute;
+    left: 242px;
+    top: 12px;
+    @include window {
+        left: 210px;
+    }
+}
+
+.add-btn {
+    min-height: max-content;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    @include window {
+        width: 100px;
+        height: 40px;
+    }
+}

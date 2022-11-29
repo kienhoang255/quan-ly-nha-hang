@@ -92,6 +92,7 @@ const StaffLayout = () => {
                                 onClick={() => {
                                     handleOnPage(role);
                                 }}
+                                style={{ textDecoration: 'none' }}
                             >
                                 {role.title}
                             </Button>

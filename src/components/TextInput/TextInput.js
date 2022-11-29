@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TextInput.module.scss';
-import PopUp from '../PopUp/PopUp';
+import PopUp from '../PopUpMessage/PopUpMessage';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 const cx = classNames.bind(styles);

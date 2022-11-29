@@ -1,4 +1,4 @@
-import { EMPLOYEE, LOGIN, MESSAGE, RESIGTER } from './constants';
+import { EMPLOYEE, LOGIN, MESSAGE, RESIGTER, TABLESERVING } from './constants';
 
 export const setResigter = (payload) => ({
     type: RESIGTER,
@@ -17,5 +17,10 @@ export const setMessage = (payload) => ({
 
 export const setEmployee = (payload) => ({
     type: EMPLOYEE,
+    payload,
+});
+
+export const setTableServing = (payload) => ({
+    type: TABLESERVING,
     payload,
 });

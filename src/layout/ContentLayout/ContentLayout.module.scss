@@ -1,0 +1,28 @@
+@use '../../assets/styles/' as *;
+
+.container {
+    height: 100%;
+    background-color: $secondaryBgColor;
+    @include centerDirection(column);
+    justify-content: flex-start;
+    overflow: hidden;
+}
+.title {
+    margin: 20px;
+    height: 5%;
+    min-height: 42px;
+    width: 95%;
+    color: black;
+    border-radius: 6px;
+    background-color: $bgColor;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    @include centerDirection(row);
+}
+
+.content {
+    width: 95%;
+    // overflow: hidden;
+    // overflow-y: auto;
+}

@@ -5,10 +5,10 @@
     width: 120px;
 }
 
-.content ~ .content {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+// .content ~ .content {
+//     margin-top: 10px;
+//     margin-bottom: 10px;
+// }
 
 .title {
     @include center;

@@ -3,12 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { privateRoutesLv1, privateRoutesLv2, publicRoutes } from '~/routes';
 import { IsLogged, ProtectRoute } from './components/IsLogged';
 import StaffLayout from './layout/StaffLayout/StaffLayout';
+import Missing from './pages/Missing';
+import Menu from '~/pages/Staff/Menu/Menu';
 
 function App() {
     return (
         <Router>
             <div className="App">
                 <Routes>
+                    <Route path="*" element={<Missing />} />
                     <Route element={<IsLogged />}>
                         {publicRoutes.map((route, index) => {
                             const Page = route.component;
@@ -28,6 +31,7 @@ function App() {
                                 return <Route key={index} path={route.path} element={<Page />} />;
                             })}
                         </Route>
+                        <Route path="/menu" element={<Menu />} />
                     </Route>
                 </Routes>
             </div>

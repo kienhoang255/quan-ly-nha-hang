@@ -1,0 +1,58 @@
+@use '../../assets/styles/' as *;
+
+.content {
+    width: 220px;
+    height: 80px;
+    background-color: $primaryBgColor;
+    border: 1px solid $primaryColor;
+    color: $primaryColor;
+    border-radius: 8px;
+    margin: 20px 0;
+    justify-self: center;
+    @include centerDirection(column);
+    align-items: flex-start;
+
+    &:active,
+    &:hover {
+        background-color: $primaryColor;
+        color: $primaryBgColor;
+    }
+
+    @include window {
+        width: 180px;
+    }
+
+    @include tablet {
+        width: 150px;
+    }
+}
+
+.num-table {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.people {
+    @extend .num-table;
+    @include center;
+    gap: 5px;
+}
+
+.status {
+    align-self: flex-end;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.empty {
+    color: $successColor;
+}
+
+.using {
+    color: $dangerColor;
+}
+
+.booked {
+    color: $warningColor;
+}
