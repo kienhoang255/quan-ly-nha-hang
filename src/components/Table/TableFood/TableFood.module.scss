@@ -1,7 +1,8 @@
-@use '../../assets/styles/' as *;
+@use '../../../assets/styles/' as *;
 
-$grid-columns: 8% 27% 13% 27% 25%;
+$grid-columns: 5% 27% 13% 27% 25%;
 .container {
+    grid-column: span 2;
     width: 100%;
     display: grid;
     grid-template-rows: 60px 1fr;

@@ -25,15 +25,11 @@ export const login = (data, dispatch) => {
 };
 
 export const resigter = (data) => {
-    axios.post(`${URL}user/create`, data).then((res) => {
-        console.log(res.data);
-    });
+    axios.post(`${URL}user/create`, data).then((res) => {});
 };
 
 export const test = () => {
-    axios.get(`${URL}user/test`, headers).then((res) => {
-        console.log(res.data);
-    });
+    axios.get(`${URL}user/test`, headers).then((res) => {});
 };
 
 export const logout = () => {
@@ -51,13 +47,9 @@ const dataCheckIn = {
     year: year,
 };
 export const checkIn = () => {
-    axios.post(`${URL}shift/create`, dataCheckIn, headers).then((res) => {
-        console.log(res);
-    });
+    axios.post(`${URL}shift/create`, dataCheckIn, headers).then((res) => {});
 };
 
 export const getCheckIn = () => {
-    axios.post(`${URL}shift/create`, dataCheckIn, headers).then((res) => {
-        console.log(res);
-    });
+    axios.post(`${URL}shift/create`, dataCheckIn, headers).then((res) => {});
 };

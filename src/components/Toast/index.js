@@ -10,7 +10,7 @@ import { RiErrorWarningFill } from 'react-icons/ri';
 const cx = classNames.bind(styles);
 
 const Toast = ({ trigger, message, placement = 'top-mid', duration = 3000, type = 'success' }) => {
-    const [isTrigger, setIsTrigger] = useState(true);
+    // const [isTrigger, setIsTrigger] = useState(true);
     const icon = [
         {
             name: 'success',
@@ -35,7 +35,7 @@ const Toast = ({ trigger, message, placement = 'top-mid', duration = 3000, type 
     ];
 
     // setTimeout(() => {
-    //     setIsTrigger(false);
+    // setIsTrigger(false);
     // }, duration);
 
     const iconSelect = icon.filter((icon) => icon.name === type);
@@ -44,13 +44,13 @@ const Toast = ({ trigger, message, placement = 'top-mid', duration = 3000, type 
 
     return (
         <>
-            {isTrigger && (
-                <div className={classes}>
-                    <span className={cx('blank', type, placement)}></span>
-                    <span className={classIcon}>{iconSelect[0].icon}</span>
-                    <p className={cx('message')}>{message}</p>
-                </div>
-            )}
+            {/* {isTrigger && ( */}
+            <div className={classes}>
+                <span className={cx('blank', type, placement)}></span>
+                <span className={classIcon}>{iconSelect[0].icon}</span>
+                <p className={cx('message')}>{message}</p>
+            </div>
+            {/* )} */}
         </>
     );
 };

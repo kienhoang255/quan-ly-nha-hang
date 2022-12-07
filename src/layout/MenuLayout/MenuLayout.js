@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const MenuLayout = ({ title, children, className, state }) => {
+const MenuLayout = ({ title, children, className, state, onClickBack }) => {
     return (
         <div className={cx('container')}>
             <div className={cx('title')}>
-                <Link to="/list-table" className={cx('back-btn')}>
+                <Link to="/list-table" className={cx('back-btn')} onClick={onClickBack}>
                     <IoMdArrowRoundBack />
                 </Link>
                 <span className={cx('main-title')}>{title}</span>

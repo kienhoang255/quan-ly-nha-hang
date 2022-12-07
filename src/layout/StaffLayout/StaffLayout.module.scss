@@ -67,8 +67,14 @@
 }
 
 .btn {
+    justify-content: flex-start;
+    padding: {
+        top: 6px;
+        bottom: 6px;
+    }
     height: 60px;
-    font-size: 30px;
+    font-size: 20px;
+    animation: show 0.2s linear forwards;
 }
 
 .active {
@@ -110,5 +116,18 @@
     }
     from {
         transform: rotate(90deg);
+    }
+}
+
+@keyframes show {
+    to {
+        transform: translate(0%);
+        opacity: 1;
+        font-size: 20px;
+    }
+    from {
+        transform: translate(-100%);
+        opacity: 0;
+        font-size: 0px;
     }
 }

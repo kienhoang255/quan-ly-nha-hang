@@ -6,7 +6,19 @@ import Tippy from '@tippyjs/react';
 
 const cx = classNames.bind(styles);
 
-const Button = ({ children, variant = 'normal', full, zoom, to, className, notify, ...props }) => {
+const Button = ({
+    children,
+    variant = 'normal',
+    full,
+    zoom,
+    to,
+    className,
+    leftIcon,
+    rightIcon,
+    notify,
+    active = false,
+    ...props
+}) => {
     let Comp = 'button';
     if (to) {
         props.to = to;
@@ -16,7 +28,7 @@ const Button = ({ children, variant = 'normal', full, zoom, to, className, notif
     const variantMode = ['outline', 'normal', 'none'];
     const getVariant = () => variantMode.filter((e) => e === variant).toString();
 
-    const classes = cx('content', getVariant(), { [className]: className, full, zoom });
+    const classes = cx('content', getVariant(), { [className]: className, full, zoom, active });
     return (
         <>
             {notify ? (
@@ -27,6 +39,7 @@ const Button = ({ children, variant = 'normal', full, zoom, to, className, notif
                 </Tippy>
             ) : (
                 <Comp className={classes} {...props}>
+                    {leftIcon && <div className={cx('left-icon')}>{leftIcon}</div>}
                     <div className={cx('title')}>{children}</div>
                 </Comp>
             )}

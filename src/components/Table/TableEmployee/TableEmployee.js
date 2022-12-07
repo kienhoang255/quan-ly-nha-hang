@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './Table.module.scss';
-import Avatar from '../Avatar/Avatar';
-import ModalUser from '../ModalUser/ModalUser';
+import styles from './TableEmployee.module.scss';
+import Avatar from '../../Avatar/Avatar';
+import ModalUser from '../../Modal/ModalUser/ModalUser';
 
 const cx = classNames.bind(styles);
 
-const Table = ({ data }) => {
+const TableEmployee = ({ data }) => {
     const table = data;
     return (
         <div className={cx('container')}>
@@ -38,4 +38,4 @@ const Table = ({ data }) => {
     );
 };
 
-export default Table;
+export default TableEmployee;

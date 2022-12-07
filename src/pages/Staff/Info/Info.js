@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import StaffLayout from '~/layout/StaffLayout/StaffLayout';
-import { getToLocalStorage, removeItemFromLS, setToLocalStorage } from '~/utils/saveToBrowser';
+import React from 'react';
+import { getToLocalStorage } from '~/utils/saveToBrowser';
 
 import classNames from 'classnames/bind';
 import styles from './Info.module.scss';
 import Avatar from '~/components/Avatar/Avatar';
-import TextInput from '~/components/TextInput/TextInput';
 import Label from '~/components/Label/Label';
 import Button from '~/components/Button/Button';
 import { checkIn, logout } from '~/services/users';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
@@ -18,13 +15,6 @@ const Info = () => {
     const user = getToLocalStorage('user');
     const navigate = useNavigate();
     const from = '/';
-    const handleOnClick = () => {
-        setToLocalStorage('role', 'staff');
-    };
-
-    const handleOnRemove = () => {
-        removeItemFromLS('role');
-    };
 
     const handleLogout = () => {
         logout();

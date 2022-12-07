@@ -1,0 +1,99 @@
+@use '../../../assets/styles/' as *;
+
+.modal {
+    justify-self: center;
+}
+
+.container {
+    @include center;
+    @include fullScreen;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    color: $primaryColor;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.openContainer {
+    animation: OpenModal 0.25s linear;
+}
+.closeContainer {
+    animation: Close 0.15s linear forwards;
+}
+
+.content {
+    background-color: $primaryBgColor;
+    width: 400px;
+    height: 200px;
+    @include centerDirection(column);
+    justify-content: space-evenly;
+    border-radius: 8px;
+    border: 1px solid $primaryColor;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    & > button {
+        justify-self: center;
+        align-self: center;
+    }
+}
+
+.text {
+    grid-column: span 2;
+}
+
+.openContent {
+    animation: OpenModal 0.15s linear, SlideIn 0.25s linear;
+}
+
+.closeContent {
+    animation: Close 0.15s linear forwards, SlideOut 0.15s linear;
+}
+
+@keyframes OpenModal {
+    to {
+        opacity: 1;
+    }
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes SlideIn {
+    to {
+        transform: translateY(0);
+    }
+    from {
+        transform: translateY(-40%);
+    }
+}
+
+@keyframes Close {
+    to {
+        opacity: 0;
+    }
+    from {
+        opacity: 1;
+    }
+}
+
+@keyframes SlideOut {
+    to {
+        transform: translateY(-40%);
+    }
+    from {
+        transform: translateY(0);
+    }
+}

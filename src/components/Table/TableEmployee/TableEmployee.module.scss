@@ -1,0 +1,66 @@
+@use '../../../assets/styles/' as *;
+
+$grid-columns: 8% 27% 13% 27% 25%;
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    @include window {
+        grid-template-rows: 40px 1fr;
+    }
+}
+
+.header {
+    display: grid;
+    grid-template-columns: $grid-columns;
+    font-weight: bold;
+    color: black;
+    border-radius: 8px 8px 0 0;
+    background-color: $bgColor;
+    text-transform: uppercase;
+    & > div {
+        @include center;
+        border-right: 1px solid black;
+    }
+    div:last-child {
+        border-right: none;
+    }
+    @include window {
+        font-size: 14px;
+    }
+}
+
+.body {
+    div:first-child {
+        border-top: none;
+    }
+    div:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+.content {
+    height: 80px;
+    display: grid;
+    grid-template-columns: $grid-columns;
+    color: $primaryColor;
+    background-color: $primaryBgColor;
+    border-top: 1px solid $bgColor;
+    & > div {
+        @include center;
+    }
+
+    &:hover {
+        background-color: $secondaryBgColor;
+        cursor: pointer;
+    }
+    @include window {
+        font-size: 14px;
+        height: 60px;
+    }
+}
+
+.name {
+    padding-left: 20px;
+    text-transform: capitalize;
+}

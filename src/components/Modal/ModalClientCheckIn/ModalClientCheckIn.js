@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ModalClientCheckIn.module.scss';
-import TextInput from '../TextInput/TextInput';
-import Button from '../Button/Button';
+import TextInput from '../../TextInput/TextInput';
+import Button from '../../Button/Button';
 
 const cx = classNames.bind(styles);
 
-const ClientCheckIn = ({ children, className, onSubmit, onClick }) => {
+const ModalClientCheckIn = ({ children, className, onSubmit, onClick }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenAnimation, setIsOpenAnimation] = useState(false);
     const handleOnChildren = () => {
@@ -44,12 +44,18 @@ const ClientCheckIn = ({ children, className, onSubmit, onClick }) => {
                         onClick={handleStopPropagation}
                     >
                         <div className={cx('title')}>check in</div>
-                        <form onSubmit={onSubmit}>
-                            <TextInput type="text" name="email" placeholder="Email/Phone..." notify={''} />
+                        <form onSubmit={onSubmit} className={cx('form')}>
+                            <TextInput
+                                type="text"
+                                name="email"
+                                placeholder="Email/Phone..."
+                                notify={''}
+                                className={cx('text')}
+                            />
                             <Button variant="outline" onClick={closeModal}>
-                                Cancel
+                                Hủy
                             </Button>
-                            <Button>Check In</Button>
+                            <Button>Check in</Button>
                         </form>
                     </div>
                 </div>
@@ -58,4 +64,4 @@ const ClientCheckIn = ({ children, className, onSubmit, onClick }) => {
     );
 };
 
-export default ClientCheckIn;
+export default ModalClientCheckIn;

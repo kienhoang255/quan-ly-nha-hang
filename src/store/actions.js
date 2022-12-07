@@ -1,4 +1,16 @@
-import { EMPLOYEE, LOGIN, MESSAGE, RESIGTER, TABLESERVING } from './constants';
+import {
+    ADDFOODSELECTED,
+    ADDTABLE,
+    CLEARFOODSELECTED,
+    EMPLOYEE,
+    GETFOOD,
+    GETTABLE,
+    LOGIN,
+    MESSAGE,
+    REMOVEFOODSELECTED,
+    RESIGTER,
+    TABLESERVING,
+} from './constants';
 
 export const setResigter = (payload) => ({
     type: RESIGTER,
@@ -22,5 +34,28 @@ export const setEmployee = (payload) => ({
 
 export const setTableServing = (payload) => ({
     type: TABLESERVING,
+    payload,
+});
+//food
+export const addFoodSelected = (payload) => ({
+    type: ADDFOODSELECTED,
+    payload,
+});
+
+export const removeFoodSelected = (payload) => ({
+    type: REMOVEFOODSELECTED,
+    payload,
+});
+
+export const clearFoodSelected = () => ({ type: CLEARFOODSELECTED });
+
+export const getFood = (payload) => ({
+    type: GETFOOD,
+    payload,
+});
+
+//table
+export const getTable = (payload) => ({
+    type: GETTABLE,
     payload,
 });

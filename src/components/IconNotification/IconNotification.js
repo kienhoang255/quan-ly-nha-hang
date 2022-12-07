@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './IconNotification.module.scss';
 import { GoPrimitiveDot } from 'react-icons/go';

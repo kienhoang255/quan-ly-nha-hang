@@ -1,0 +1,136 @@
+@use '../../assets/styles/' as *;
+
+.container {
+    margin: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: $bgColor;
+    border-radius: 8px;
+    height: 80px;
+    width: 400px;
+}
+
+.bill {
+    position: absolute;
+    color: red;
+    @include center;
+    background-color: aquamarine;
+}
+
+.container-modal {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    @include fullScreenCenter;
+    top: 0;
+    left: 0;
+}
+
+.content {
+    width: 700px;
+    height: 600px;
+    background-color: $primaryBgColor;
+    border-radius: 8px;
+    @include centerDirection(column);
+
+    justify-content: space-between;
+}
+
+.logo {
+    justify-items: flex-start;
+    justify-self: flex-start;
+}
+
+.list-ordered {
+    width: 100%;
+    height: 100%;
+}
+$padding: 20px;
+.header {
+    color: $primaryColor;
+    display: grid;
+    grid-template-columns: 100px 300px 100px calc(180px - $padding);
+    & > div:last-child {
+        justify-self: flex-end;
+    }
+    padding: 10px $padding;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid $primaryColor;
+}
+
+.body {
+    font-size: 16px;
+    font-weight: 500;
+    @extend .header;
+    text-transform: capitalize;
+}
+
+.footer {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px $padding;
+    color: $primaryColor;
+    @include center;
+    justify-content: space-between;
+}
+
+.action-btn {
+    width: 100%;
+    margin-bottom: 20px;
+    @include center;
+    justify-content: space-evenly;
+}
+
+.openContainer {
+    animation: OpenModal 0.15s linear;
+}
+.closeContainer {
+    animation: Close 0.15s linear forwards;
+}
+
+.openContent {
+    animation: OpenModal 0.15s linear, SlideIn 0.15s linear;
+}
+
+.closeContent {
+    animation: Close 0.15s linear forwards, SlideOut 0.15s linear;
+}
+
+@keyframes OpenModal {
+    to {
+        opacity: 1;
+    }
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes SlideIn {
+    to {
+        transform: translateY(0);
+    }
+    from {
+        transform: translateY(-40%);
+    }
+}
+
+@keyframes Close {
+    to {
+        opacity: 0;
+    }
+    from {
+        opacity: 1;
+    }
+}
+
+@keyframes SlideOut {
+    to {
+        transform: translateY(-40%);
+    }
+    from {
+        transform: translateY(0);
+    }
+}

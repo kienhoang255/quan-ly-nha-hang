@@ -1,0 +1,39 @@
+@use '../../../assets/styles/' as *;
+
+@mixin wrap {
+    border-radius: 8px;
+    border: 1px solid $bgColor;
+    background-color: $primaryBgColor;
+}
+
+.menu {
+    margin: auto;
+    min-height: 40px;
+    width: 95%;
+    color: black;
+    border-radius: 6px;
+    background-color: $bgColor;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 2;
+    @include centerDirection(row);
+    position: relative;
+    &-icon {
+        position: absolute;
+        right: 40px;
+        top: 2px;
+    }
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-food {
+    @include wrap();
+}
+
+.table {
+}

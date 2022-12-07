@@ -29,14 +29,6 @@
     &-item {
         width: 40px !important;
         height: 40px !important;
-        border: 1px solid $primaryColor !important;
-        background-color: $primaryBgColor !important;
-        color: $primaryColor !important;
-        &:hover {
-            background-color: $primaryColor !important;
-            color: $primaryBgColor !important;
-            opacity: 1 !important;
-        }
     }
 }
 

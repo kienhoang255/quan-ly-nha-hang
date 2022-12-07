@@ -3,6 +3,11 @@
 .content {
     height: 40px;
     width: 120px;
+    @include centerDirection(row);
+}
+
+.left-icon {
+    margin: 10px;
 }
 
 // .content ~ .content {
@@ -63,4 +68,9 @@
     from {
         transform: scale(1);
     }
+}
+
+.active {
+    background-color: $bgColor;
+    color: black;
 }

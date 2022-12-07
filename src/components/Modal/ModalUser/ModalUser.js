@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ModalUser.module.scss';
-import Avatar from '../Avatar/Avatar';
-import Label from '../Label/Label';
-import Button from '../Button/Button';
-import TextInput from '../TextInput/TextInput';
-import ButtonInput from '../ButtonInput/ButtonInput';
+import Avatar from '../../Avatar/Avatar';
+import Button from '../../Button/Button';
+import TextInput from '../../TextInput/TextInput';
+import ButtonInput from '../../ButtonInput/ButtonInput';
 
 const cx = classNames.bind(styles);
 

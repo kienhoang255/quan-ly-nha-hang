@@ -11,7 +11,7 @@ const OrderedList = () => {
     });
     return (
         <ContentLayout title={'Order List'}>
-            <div>123</div>
+            <div className={cx('container')}>123</div>
         </ContentLayout>
     );
 };

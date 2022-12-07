@@ -1,3 +1,11 @@
 {
-    "cSpell.words": ["localtion", "Resigter", "TABLESERVING"]
+    "cSpell.words": [
+        "ADDFOODSELECTED",
+        "CLEARFOODSELECTED",
+        "FOODSELECTED",
+        "localtion",
+        "REMOVEFOODSELECTED",
+        "Resigter",
+        "TABLESERVING"
+    ]
 }

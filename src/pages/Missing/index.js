@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Missing.module.scss';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
 import Button from '~/components/Button/Button';
 
 const cx = classNames.bind(styles);
