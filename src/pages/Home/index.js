@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '~/components/Button/Button';
-import { getFood } from '~/services/food';
-import { actions, useStore } from '~/store';
 
 export default function Home() {
-    const [state, dispatch] = useStore();
-
-    // useEffect(() => {
-    //     if (state.FOODS[0] === undefined) {
-    //         // dispatch(actions.getFood());
-    //     }
-    // });
-
     return (
         <div>
             <Link to="/resigter">Resigter</Link>

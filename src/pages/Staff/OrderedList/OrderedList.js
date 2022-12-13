@@ -1,17 +1,96 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderedList.module.scss';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
+import Button from '~/components/Button/Button';
+import { actions, useStore } from '~/store';
+import { updateFoodCancelApi, updateFoodServedApi } from '~/services/foodOrder';
+import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
 const OrderedList = () => {
+    const [state, dispatch] = useStore();
+    const [filter, setFilter] = useState('cooking');
+    let FO = [];
     useEffect(() => {
-        document.title = 'Order List';
+        document.title = 'Danh sách đặt món';
     });
+
+    state?.FOODS.forEach((element) => {
+        state.FOOD_ORDERED?.forEach((elementFO) => {
+            if (element._id === elementFO.id_food) {
+                FO.push({
+                    _id: elementFO._id,
+                    name: element.name,
+                    image: element.image,
+                    quantity: elementFO.quantity,
+                    status: elementFO.status,
+                    time: moment(elementFO.createdAt).format('HH:mm'),
+                });
+            }
+        });
+    });
+
+    const handleServed = (data) => {
+        updateFoodServedApi({ id_foodOrdered: data }).then((res) => dispatch(actions.updateFO(res.foodOrdered)));
+    };
+
+    const handleCancel = (data) => {
+        updateFoodCancelApi({ id_foodOrdered: data }).then((res) => dispatch(actions.updateFO(res)));
+    };
+
     return (
-        <ContentLayout title={'Order List'}>
-            <div className={cx('container')}>123</div>
+        <ContentLayout title={'Danh sách đặt món'}>
+            <div className={cx('container')}>
+                <div className={cx('order-title')}>
+                    <div className={cx('order-title-name')}>tên món ăn</div>
+                    <div className={cx('order-title-quantity')}>số lượng</div>
+                    <div className={cx('order-title-note')}>thời gian đặt</div>
+                    <div className={cx('order-title-status')}>trạng thái</div>
+                    <div className={cx('order-title-buttons-action')}>
+                        <Button className={cx('btn-filter-cooking')} onClick={() => setFilter('cooking')}>
+                            Cook
+                        </Button>
+                        <Button className={cx('btn-filter-served')} onClick={() => setFilter('served')}>
+                            Served
+                        </Button>
+                        <Button className={cx('btn-filter-cancel')} onClick={() => setFilter('cancel')}>
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+                <div className={cx('wrap')}>
+                    {FO?.filter((e) => e.status === filter)
+                        ?.sort((a, b) => a.time.localeCompare(b.time))
+                        .map((e, key) => (
+                            <div className={cx('order-item')} key={key}>
+                                <img className={cx('order-item-image')} src={e.image} alt="" />
+                                <div className={cx('order-item-name')}>{e.name}</div>
+                                <div className={cx('order-item-quantity')}>{e.quantity}</div>
+                                <div className={cx('order-item-note')}>{e?.time}</div>
+                                <div className={cx('order-item-status', `${e.status}`)}>{e.status}</div>
+                                <div className={cx('order-item-buttons-action')}>
+                                    <Button
+                                        variant="outline"
+                                        className={cx('btn-cancel')}
+                                        onClick={() => handleCancel(e._id)}
+                                        disable={e.status === 'served' || e.status === 'cancel'}
+                                    >
+                                        Huỷ
+                                    </Button>
+                                    <Button
+                                        className={cx('btn-confirm')}
+                                        onClick={() => handleServed(e._id)}
+                                        disable={e.status === 'served' || e.status === 'cancel'}
+                                    >
+                                        Hoàn thành
+                                    </Button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
+            </div>
         </ContentLayout>
     );
 };

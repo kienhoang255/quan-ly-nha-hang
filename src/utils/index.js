@@ -29,3 +29,6 @@ export const sortStageDuplicate = (data) => {
 
     return result;
 };
+
+export const formatVND = (number) =>
+    new Intl.NumberFormat('vn-VN', { style: 'currency', currency: 'VND' }).format(number);

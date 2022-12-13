@@ -2,13 +2,40 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ListFood.module.scss';
 import FoodItem from '../FoodItem/FoodItem';
+import { FaShoppingCart } from 'react-icons/fa';
+import ModalCardBill from '../Modal/ModalCardBill/ModalCardBill';
 
 const cx = classNames.bind(styles);
 
-const ListFood = ({ type, data, quantity, onClickAddFood, onClickRemoveFood, setting }) => {
+const ListFood = ({
+    type,
+    data,
+    quantity,
+    onClickAddFood,
+    onClickRemoveFood,
+    setting,
+    handleCheckFoodOrder,
+    cart = false,
+    handleCheckOut,
+    billDetail,
+    alertModal,
+}) => {
     return (
         <div className={cx('container')}>
-            <div className={cx('food-type')}>{type}</div>
+            <div className={cx('title')}>
+                <p className={cx('food-type')}>{type}</p>
+                {cart && (
+                    <ModalCardBill
+                        className={cx('icon')}
+                        handleCheckFoodOrder={handleCheckFoodOrder}
+                        handleCheckOut={handleCheckOut}
+                        billDetail={billDetail}
+                        alertModal={alertModal}
+                    >
+                        <FaShoppingCart />
+                    </ModalCardBill>
+                )}
+            </div>
             <div className={cx('food-list')}>
                 {data?.map((food) => (
                     <FoodItem

@@ -5,11 +5,12 @@ import Button from '~/components/Button/Button';
 import ModalClientCheckIn from '~/components/Modal/ModalClientCheckIn/ModalClientCheckIn';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
 import TableEmployeeItem from '~/components/Table/TableEmployeeItem/TableEmployeeItem';
+
 import { actions, useStore } from '~/store';
 import { useNavigate } from 'react-router-dom';
-
 import { AiOutlineSearch } from 'react-icons/ai';
 import { sortStageDuplicate } from '~/utils';
+import { clientCheckIn } from '~/services/bill';
 
 const cx = classNames.bind(styles);
 
@@ -21,36 +22,30 @@ const ListTable = () => {
     const navigate = useNavigate();
     const from = '/menu';
 
-    const [nameButtonStage, setNameButtonStage] = useState(sortStageDuplicate(state?.TABLES));
+    const [nameButtonStage, setNameButtonStage] = useState(sortStageDuplicate(state.TABLES));
 
-    const [stage, setStage] = useState(nameButtonStage[0]);
-    useEffect(() => {
-        onClickStage(stage);
-    }, []);
+    const [stageTable, setStageTable] = useState(nameButtonStage[0]);
     let dataTable = [];
     const onClickStage = (stageSel) => {
-        setStage(stageSel);
+        setStageTable(stageSel);
         setNameButtonStage((prev) =>
             prev?.map((e) => {
-                if (e.stage === stageSel.stage) {
+                if (e?.stage === stageSel?.stage) {
                     return { ...e, active: true };
                 }
                 return { ...e, active: false };
             }),
         );
     };
-
+    useEffect(() => {
+        onClickStage(nameButtonStage[0]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     state.TABLES?.forEach((e) => {
-        if (e?.stage === stage?.stage) {
+        if (e?.stage === stageTable?.stage) {
             dataTable.push(e);
         }
     });
-
-    const submitTable = (e) => {
-        e.preventDefault();
-        const checkInForm = new FormData(e.target);
-        const dataCheckIn = Object.fromEntries(checkInForm.entries());
-    };
 
     const getStatus = (data) => {
         if (data.status === 'using') navigate(from);
@@ -60,13 +55,25 @@ const ListTable = () => {
         dispatch(actions.setTableServing(data));
     };
 
+    const handleOnLoad = () => {
+        setNameButtonStage(sortStageDuplicate(state.TABLES));
+    };
+
+    const submitTable = (e) => {
+        e.preventDefault();
+        const checkInForm = new FormData(e.target);
+        checkInForm.append('id_table', state.TABLESERVING._id);
+        const dataCheckIn = Object.fromEntries(checkInForm.entries());
+        clientCheckIn(dispatch, dataCheckIn);
+    };
+
     return (
         <ContentLayout title="Danh sách bàn ăn">
-            <div className={cx('list-button')}>
+            <div className={cx('list-button')} onLoad={handleOnLoad}>
                 <Button className={cx('btn-search')}>
                     <AiOutlineSearch />
                 </Button>
-                {nameButtonStage.map((e) => (
+                {nameButtonStage?.map((e) => (
                     <Button
                         key={e?.stage}
                         variant="outline"

@@ -17,6 +17,7 @@ const Button = ({
     rightIcon,
     notify,
     active = false,
+    disable = false,
     ...props
 }) => {
     let Comp = 'button';
@@ -28,7 +29,7 @@ const Button = ({
     const variantMode = ['outline', 'normal', 'none'];
     const getVariant = () => variantMode.filter((e) => e === variant).toString();
 
-    const classes = cx('content', getVariant(), { [className]: className, full, zoom, active });
+    const classes = cx('content', getVariant(), { [className]: className, full, zoom, active, disable });
     return (
         <>
             {notify ? (

@@ -50,8 +50,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     @include window {
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -66,7 +65,7 @@
 .text-input {
     @include window {
         font-size: 15px;
-        width: 200px;
+        width: 320px;
     }
 }
 

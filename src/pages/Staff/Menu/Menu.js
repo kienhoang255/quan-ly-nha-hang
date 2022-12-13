@@ -6,31 +6,39 @@ import Button from '~/components/Button/Button';
 import MenuLayout from '~/layout/MenuLayout/MenuLayout';
 import { actions, useStore } from '~/store';
 import { sortTypeDuplicate } from '~/utils';
-import Cart from '~/components/Cart/Cart';
-import TextInput from '~/components/TextInput/TextInput';
+import CartOrder from '~/components/CartOrder/CartOrder';
+import { checkFoodOrderApi, orderFoodApi } from '~/services/foodOrder';
+import { checkOutApi } from '~/services/bill';
+import { getClientApi } from '~/services/client';
+import moment from 'moment';
+import ModalAlert from '~/components/Modal/ModalAlert/ModalAlert';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const Menu = () => {
-    const [state, dispatch] = useStore();
     useEffect(() => {
         document.title = 'Menu';
     });
-
+    const [state, dispatch] = useStore();
+    const [billDetail, setBillDetail] = useState({
+        email: '',
+        FODetail: [],
+        timeStart: '',
+        timeEnd: '',
+        total: '',
+    });
+    const [alertModal, setAlertModal] = useState(false);
+    let dataMenu = [];
     const [nameButtonType, setNameButtonType] = useState(sortTypeDuplicate(state?.FOODS));
-
     const [type, setType] = useState(nameButtonType[0]);
 
-    useEffect(() => {
-        onClickType(type);
-    }, []);
-    let dataMenu = [];
     const onClickType = (typeSel) => {
         setType(typeSel);
 
         setNameButtonType((prev) =>
             prev.map((e) => {
-                if (e.type === typeSel.type) {
+                if (e?.type === typeSel?.type) {
                     return { ...e, active: true };
                 }
                 return { ...e, active: false };
@@ -55,32 +63,100 @@ const Menu = () => {
         dispatch(actions.clearFoodSelected());
     };
 
+    //order food
+    const handleOrderFood = () => {
+        let foods = [];
+        state.FOODSELECTED.forEach((food) => {
+            foods.push({ id_food: food._id, quantity: food.quantity });
+        });
+        let data = { id_table: state.TABLESERVING._id, id_bill: state.TABLESERVING.id_bill[0], foods: foods };
+        orderFoodApi(data);
+        dispatch(actions.clearFoodSelected());
+    };
+
+    //check bill
+    const handleCheckFoodOrder = async () => {
+        let detail = [];
+        var id_client;
+        var timeStart;
+        var timeEnd;
+        const promise1 = state?.BILLS?.forEach((bill) => {
+            if (bill?._id === state?.TABLESERVING?.id_bill[0]) {
+                id_client = bill?.id_client;
+                timeStart = moment(bill?.createdAt).format('DD/MM/YYYY HH:mm');
+                timeEnd = moment(bill?.updatedAt).format('DD/MM/YYYY HH:mm');
+            }
+        });
+        const info = await getClientApi(id_client);
+        const promise2 = checkFoodOrderApi(state.TABLESERVING?.id_bill).then((res) => {
+            res.forEach((detailRes) => {
+                state.FOODS.forEach((detailFood) => {
+                    if (detailRes.id_food === detailFood._id)
+                        detail.push({
+                            name: detailFood.name,
+                            quantity: detailRes.quantity,
+                            price: detailFood.price,
+                            status: detailRes.status,
+                        });
+                });
+            });
+        });
+
+        Promise.all([info, promise1, promise2]).then(() => {
+            setBillDetail({ email: info.email || info.phone, timeStart, timeEnd, FODetail: detail });
+        });
+    };
+
+    //Client check out
+    const from = '/list-table';
+    const navigate = useNavigate();
+    const handleCheckOut = () => {
+        const find = billDetail.FODetail.find((e) => e.status === 'cooking');
+        if (!find) {
+            checkOutApi({ id_bill: state.TABLESERVING.id_bill[0] }).then(
+                (res) => dispatch(actions.updateTableUsing(res.table)),
+                navigate(from, { replace: true }),
+            );
+        } else {
+            setAlertModal(true);
+        }
+    };
+
     let totalPrice = state.FOODSELECTED?.reduce((sum, current) => sum + current.price * current.quantity, 0);
     return (
-        <MenuLayout title="menu" state={state.TABLESERVING} onClickBack={clickBack}>
+        <MenuLayout title="thực đơn" state={state.TABLESERVING} onClickBack={clickBack}>
             <div className={cx('container')}>
                 <div className={cx('select-type')}>
                     {nameButtonType?.map((type) => (
                         <Button
-                            key={type.type}
+                            key={type?.type}
                             variant="none"
                             full
                             className={cx('select-btn')}
                             onClick={() => onClickType(type)}
-                            active={type.active}
+                            active={type?.active}
                         >
-                            {type.type}
+                            {type?.type}
                         </Button>
                     ))}
                 </div>
                 <ListFood
+                    cart={true}
+                    handleCheckFoodOrder={handleCheckFoodOrder}
                     type={type?.type}
                     data={dataMenu}
                     quantity={state.FOODSELECTED}
                     onClickAddFood={addFood}
                     onClickRemoveFood={removeFood}
+                    handleCheckOut={handleCheckOut}
+                    billDetail={billDetail}
+                    alertModal={alertModal}
                 />
-                <Cart data={state.FOODSELECTED} totalPrice={totalPrice ? totalPrice : 0} />
+                <CartOrder
+                    data={state.FOODSELECTED}
+                    totalPrice={totalPrice ? totalPrice : 0}
+                    handleOrderFood={handleOrderFood}
+                />
             </div>
         </MenuLayout>
     );

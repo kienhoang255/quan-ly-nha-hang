@@ -74,3 +74,17 @@
     background-color: $bgColor;
     color: black;
 }
+
+.disable {
+    cursor: not-allowed !important;
+    pointer-events: none;
+    position: relative;
+    &::after {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+}

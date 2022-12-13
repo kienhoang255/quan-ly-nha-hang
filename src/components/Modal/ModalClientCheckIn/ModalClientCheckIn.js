@@ -55,7 +55,7 @@ const ModalClientCheckIn = ({ children, className, onSubmit, onClick }) => {
                             <Button variant="outline" onClick={closeModal}>
                                 Hủy
                             </Button>
-                            <Button>Check in</Button>
+                            <Button onClick={handleOnChildren}>Check in</Button>
                         </form>
                     </div>
                 </div>

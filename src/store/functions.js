@@ -1,3 +1,6 @@
+export const setUser = (state, payload) => {
+    return { ...state, USER: payload };
+};
 export const addInfo = (state, payload) => {
     const newState = {
         ...state,
@@ -20,27 +23,33 @@ export const setEmployee = (state, payload) => {
     const newState = { ...state, EMPLOYEE: payload };
     return newState;
 };
-
+//TABLESERVING
 export const setTableServing = (state, payload) => {
     const newState = { ...state, TABLESERVING: payload };
     return newState;
 };
+//TABLE
+export const updateTableUsing = (state, payload) => {
+    return {
+        ...state,
+        TABLES:
+            // ...state.TABLES,
+            state.TABLES.map((e) => {
+                if (e._id === payload._id) {
+                    return payload;
+                } else return e;
+            }),
+    };
+};
 
+export const getTable = (state, payload) => {
+    return {
+        ...state,
+        TABLES: payload,
+    };
+};
+//FOOD
 export const addFoodSelected = (state, payload) => {
-    /**
-     * IF FOODSELECTED null => add new
-     * ELSE
-     *   IF _id exist
-     *      remove item has _id => add new and quantity +1
-     *   ELSE => add new
-     */
-
-    /**
-     * ...
-     * All correct but when update food in first list, i got bug
-     * Cant explain but i know how to solve
-     * When found food need update, i put that to last place in array => solved
-     */
     let result;
     const { _id, price, name } = payload;
     if (state.FOODSELECTED[0] === undefined) {
@@ -71,14 +80,6 @@ export const addFoodSelected = (state, payload) => {
 };
 
 export const removeFoodSelected = (state, payload) => {
-    /**
-     * findFood if found
-     *      check food quantity
-     *          if food quantity = 0
-     *              delete food
-     *          else
-     *              quantity - 1
-     */
     let result = state;
     const { _id, price, name } = payload;
     const findFood = state.FOODSELECTED.find((food) => food._id === payload._id);
@@ -117,9 +118,33 @@ export const getFood = (state, payload) => {
     };
 };
 
-export const getTable = (state, payload) => {
+//FOOD ORDERED
+export const add_FO = (state, payload) => {
+    return { ...state, FOOD_ORDERED: payload };
+};
+
+export const update_FO = (state, payload) => {
     return {
         ...state,
-        TABLES: payload,
+        FOOD_ORDERED: state.FOOD_ORDERED.map((e) => {
+            if (e._id === payload._id) {
+                return payload;
+            } else return e;
+        }),
+    };
+};
+
+//BILL
+export const addBill = (state, payload) => {
+    return {
+        ...state,
+        BILLS: payload,
+    };
+};
+
+export const addNewBill = (state, payload) => {
+    return {
+        ...state,
+        BILLS: [...state.BILLS, payload],
     };
 };

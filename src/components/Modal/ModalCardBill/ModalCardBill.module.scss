@@ -1,0 +1,211 @@
+@use '../../../assets/styles/' as *;
+
+.container {
+    @include center;
+    @include fullScreen;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    color: $primaryColor;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.openContainer {
+    animation: OpenModal 0.25s linear;
+}
+.closeContainer {
+    animation: Close 0.15s linear forwards;
+}
+
+.openContent {
+    animation: OpenModal 0.15s linear, SlideIn 0.25s linear;
+}
+
+.closeContent {
+    animation: Close 0.15s linear forwards, SlideOut 0.15s linear;
+}
+
+@keyframes OpenModal {
+    to {
+        opacity: 1;
+    }
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes SlideIn {
+    to {
+        transform: translateY(0);
+    }
+    from {
+        transform: translateY(-40%);
+    }
+}
+
+@keyframes Close {
+    to {
+        opacity: 0;
+    }
+    from {
+        opacity: 1;
+    }
+}
+
+@keyframes SlideOut {
+    to {
+        transform: translateY(-40%);
+    }
+    from {
+        transform: translateY(0);
+    }
+}
+
+.content {
+    width: 700px;
+    height: fit-content;
+    max-width: 850px;
+    background-color: $primaryBgColor;
+    border-radius: 8px;
+    @include centerDirection(column);
+    justify-content: space-between;
+    @include window {
+        width: 510px;
+        min-height: 600px;
+        max-height: 700px;
+    }
+}
+
+.header {
+    @include centerDirection(column);
+    width: 100%;
+}
+
+.info {
+    font-size: 16px;
+    text-transform: none;
+    font-weight: 400;
+    width: 100%;
+    @include centerDirection(column);
+    align-items: flex-start;
+
+    &::before {
+        margin-bottom: 10px;
+        content: '';
+        width: 100%;
+        height: 4px;
+        border-bottom: 2px dashed $bgColor;
+        border-top: 2px dashed $bgColor;
+    }
+
+    &::after {
+        margin-top: 10px;
+        content: '';
+        width: 100%;
+        height: 4px;
+        border-bottom: 2px dashed $bgColor;
+        border-top: 2px dashed $bgColor;
+    }
+}
+
+.body {
+    height: 100%;
+    width: 100%;
+}
+
+$padding: 20px;
+.list-title {
+    // width: 100%;
+    display: grid;
+    grid-template-columns: 8% 1fr 15% 19% 1fr;
+
+    &-num {
+        justify-self: center;
+    }
+    &-name {
+        justify-self: center;
+    }
+    &-quantity {
+        justify-self: center;
+    }
+    &-status {
+        justify-self: center;
+    }
+    &-price {
+        justify-self: flex-end;
+    }
+    padding: 10px $padding;
+    // text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid $primaryColor;
+    // // @include window {
+    // //     grid-template-columns: 45px 160px 95px calc(180px - $padding);
+    // // }
+}
+
+.wrap {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
+    @include scrollBar($bgColor);
+}
+
+.item {
+    @extend .list-title;
+    font-weight: 500;
+    font-size: 16px;
+    &-num {
+        justify-self: center;
+    }
+    &-quantity {
+        justify-self: center;
+    }
+    &-status {
+        justify-self: center;
+    }
+
+    &-price {
+        justify-self: flex-end;
+    }
+}
+
+.total {
+    @include center;
+    justify-content: space-between;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.footer {
+    @include center;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    gap: 80px;
+}
+
+.detail {
+    color: #fff;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.cooking {
+    color: $warningColor;
+}
+
+.served {
+    color: $successColor;
+}
+
+.cancel {
+    color: $dangerColor;
+}

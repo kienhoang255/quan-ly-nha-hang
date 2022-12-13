@@ -1,22 +1,14 @@
 import axios from 'axios';
 import { actions } from '~/store';
-import { getToLocalStorage, removeItemFromLS, setToLocalStorage } from '~/utils/saveToBrowser';
+import { getToLocalStorage, removeItemFromLS } from '~/utils/saveToBrowser';
 import { day, headers, hour, minute, month, URL, year } from './index';
 
 export const login = (data, dispatch) => {
     axios
         .post(`${URL}user/login`, data)
         .then((res) => {
-            document.cookie = `token=${res.data.accessToken}`;
-            const state = {
-                _id: res.data._id,
-                email: res.data.email,
-                phone: res.data.phone,
-                username: res.data.username,
-                role: res.data.role,
-                job: res.data.job,
-            };
-            setToLocalStorage('user', state);
+            document.cookie = `token=${res.data.createToken}`;
+            window.location.reload(true);
             dispatch(actions.setMessage({ type: 'success', message: 'Đăng nhâp thành công' }));
         })
         .catch((err) => {

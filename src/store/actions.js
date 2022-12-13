@@ -1,6 +1,8 @@
 import {
+    ADDBILL,
     ADDFOODSELECTED,
-    ADDTABLE,
+    ADD_FO,
+    ADD_NEW_BILL,
     CLEARFOODSELECTED,
     EMPLOYEE,
     GETFOOD,
@@ -9,8 +11,17 @@ import {
     MESSAGE,
     REMOVEFOODSELECTED,
     RESIGTER,
+    SETUSER,
     TABLESERVING,
+    UPDATE_FO,
+    UPDATE_TABLE_USING,
 } from './constants';
+//USER
+
+export const setUser = (payload) => ({
+    type: SETUSER,
+    payload,
+});
 
 export const setResigter = (payload) => ({
     type: RESIGTER,
@@ -54,8 +65,35 @@ export const getFood = (payload) => ({
     payload,
 });
 
+//food ordered
+export const addFO = (payload) => ({
+    type: ADD_FO,
+    payload,
+});
+
+export const updateFO = (payload) => ({
+    type: UPDATE_FO,
+    payload,
+});
+
 //table
 export const getTable = (payload) => ({
     type: GETTABLE,
+    payload,
+});
+
+export const updateTableUsing = (payload) => ({
+    type: UPDATE_TABLE_USING,
+    payload,
+});
+
+//bill
+export const addBill = (payload) => ({
+    type: ADDBILL,
+    payload,
+});
+
+export const addNewBill = (payload) => ({
+    type: ADD_NEW_BILL,
     payload,
 });

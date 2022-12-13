@@ -18,7 +18,6 @@ const ModalSettingFood = ({ className, onClick, children, img, setImg, addNewFoo
         setTimeout(() => {
             setIsOpen(!isOpen);
         }, 150);
-        setImg('');
     };
     const handleStopPropagation = (e) => {
         e.stopPropagation();

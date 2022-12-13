@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import styles from './Cart.module.scss';
+import styles from './CartOrder.module.scss';
 import classNames from 'classnames/bind';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Button from '../Button/Button';
 import Logo from '../Logo/Logo';
+import { formatVND } from '~/utils';
 
 const cx = classNames.bind(styles);
 
-const Cart = ({ data, totalPrice }) => {
+const CartOrder = ({ data, totalPrice, handleOrderFood }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenAnimation, setIsOpenAnimation] = useState(false);
 
@@ -34,9 +35,8 @@ const Cart = ({ data, totalPrice }) => {
             <div className={cx('container')} onClick={handleSetModal}>
                 <div>
                     <AiOutlineShoppingCart />
-                    {totalPrice}
+                    {formatVND(totalPrice)}
                 </div>
-                {/* <Button>Đặt hàng</Button> */}
             </div>
             {isOpen && (
                 <div
@@ -55,22 +55,35 @@ const Cart = ({ data, totalPrice }) => {
                                 <div>Số lượng</div>
                                 <div>Giá</div>
                             </div>
-                            {data?.map((food, index) => (
-                                <div className={cx('body')} key={index}>
-                                    <div>{index + 1}</div>
-                                    <div>{food.name}</div>
-                                    <div>{food.quantity}</div>
-                                    <div>{food.price * food.quantity}</div>
-                                </div>
-                            ))}
+                            <div className={cx('body')}>
+                                {data?.map((food, index) => (
+                                    <div className={cx('item')} key={index}>
+                                        <div className={cx('item-num')}>{index + 1}</div>
+                                        <div className={cx('item-name')}>{food?.name}</div>
+                                        <div className={cx('item-quantity')}>{food?.quantity}</div>
+                                        <div className={cx('item-total')}>
+                                            {formatVND(food?.price * food?.quantity)}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                             <div className={cx('footer')}>
                                 <div>Tổng</div>
-                                <div>{totalPrice}</div>
+                                <div>{formatVND(totalPrice)}</div>
                             </div>
                         </div>
                         <div className={cx('action-btn')}>
-                            <Button variant="outline">Đóng</Button>
-                            <Button>Đặt món</Button>
+                            <Button variant="outline" onClick={handleSetModal}>
+                                Đóng
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    handleSetModal();
+                                    handleOrderFood();
+                                }}
+                            >
+                                Đặt món
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -79,4 +92,4 @@ const Cart = ({ data, totalPrice }) => {
     );
 };
 
-export default Cart;
+export default CartOrder;
