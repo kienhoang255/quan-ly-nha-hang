@@ -134,6 +134,15 @@ export const update_FO = (state, payload) => {
     };
 };
 
+export const addItemFO = (state, payload) => {
+    const FORaw = [...new Set(state.FOOD_ORDERED)];
+    payload.forEach((e) => FORaw.push(e));
+    // const setFO = [...new Set(FORaw)];
+    // console.log(setFO);
+    // return { ...state, FOOD_ORDERED: setFO };
+    return { ...state, FOOD_ORDERED: FORaw };
+};
+
 //BILL
 export const addBill = (state, payload) => {
     return {
@@ -147,4 +156,9 @@ export const addNewBill = (state, payload) => {
         ...state,
         BILLS: [...state.BILLS, payload],
     };
+};
+
+//NOTIFICATION
+export const addNotification = (state, payload) => {
+    return { ...state, NOTIFICATION: [...state.NOTIFICATION, payload] };
 };

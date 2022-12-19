@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './IconNotification.module.scss';
 import { GoPrimitiveDot } from 'react-icons/go';
@@ -7,44 +7,52 @@ import Tippy from '@tippyjs/react';
 const cx = classNames.bind(styles);
 
 const IconNotification = ({ icon, data }) => {
-    const [isWarn, setIsWarn] = useState(true);
+    const [isWarn, setIsWarn] = useState(false);
     const tippyContent = (
         <div className={cx('tippy')}>
-            {data?.map((tippy, index) => {
-                return (
-                    <div key={index}>
-                        <div className={cx('tippy-title')}>{tippy?.title}</div>
-                        <div className={cx('tippy-content')}>
-                            <span className={cx('tippy-content-main')}>{tippy?.main}</span>
-                            <span className={cx('tippy-content-time')}>{tippy?.time}</span>
+            {data.length !== 0 ? (
+                data?.map((e, index) => {
+                    return (
+                        <div key={index} className={cx('main')}>
+                            <div className={cx('tippy-title')}>Mới</div>
+                            <div className={cx('tippy-content')}>
+                                <span className={cx('tippy-content-food')}>
+                                    Món <span className={cx('main-title')}>{e?.nameFood}</span>
+                                </span>
+                                <span className={cx('tippy-content-table')}>
+                                    Bàn <span className={cx('main-title')}>{e?.nameTable}</span>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })
+            ) : (
+                <div>Trống</div>
+            )}
         </div>
     );
 
-    useCallback(() => {
-        setIsWarn(true);
-    }, []);
+    useEffect(() => {
+        if (data.length !== 0) {
+            setIsWarn(true);
+        }
+    }, [data]);
 
     const handleOnLooking = () => {
         setIsWarn(false);
     };
 
     return (
-        <>
-            <Tippy trigger="click" content={tippyContent}>
-                <div className={cx('content')} onClick={handleOnLooking}>
-                    {isWarn && (
-                        <div className={cx('dot')}>
-                            <GoPrimitiveDot />
-                        </div>
-                    )}
-                    <div className={cx('icon')}>{icon}</div>
-                </div>
-            </Tippy>
-        </>
+        <Tippy trigger="click" content={tippyContent} placement="bottom-end">
+            <div className={cx('content')} onClick={handleOnLooking}>
+                {isWarn && (
+                    <div className={cx('dot')}>
+                        <GoPrimitiveDot />
+                    </div>
+                )}
+                <div className={cx('icon')}>{icon}</div>
+            </div>
+        </Tippy>
     );
 };
 

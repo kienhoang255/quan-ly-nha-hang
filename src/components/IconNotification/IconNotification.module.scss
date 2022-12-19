@@ -4,6 +4,44 @@
     position: relative;
 }
 
+.tippy {
+    gap: 20px;
+}
+
+.main {
+    width: 200px;
+    background-color: $primaryBgColor;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.tippy-title {
+    color: $bgColor;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.main-title {
+    text-transform: uppercase;
+}
+
+.tippy-content {
+    font-size: 16px;
+    &-food {
+        margin-right: 5px;
+        & span {
+            color: $primaryColor;
+            font-size: 16px;
+        }
+    }
+    &-table {
+        & span {
+            color: $primaryColor;
+            font-size: 16px;
+        }
+    }
+}
+
 .dot {
     position: absolute;
     color: red;

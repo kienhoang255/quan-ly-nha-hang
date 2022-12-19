@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import ListFood from '~/components/ListFood/ListFood';
@@ -11,7 +11,6 @@ import { checkFoodOrderApi, orderFoodApi } from '~/services/foodOrder';
 import { checkOutApi } from '~/services/bill';
 import { getClientApi } from '~/services/client';
 import moment from 'moment';
-import ModalAlert from '~/components/Modal/ModalAlert/ModalAlert';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -46,11 +45,13 @@ const Menu = () => {
         );
     };
 
-    state?.FOODS?.forEach((food) => {
-        if (food.type === type.type) {
-            dataMenu.push(food);
-        }
-    });
+    useMemo(() => {
+        state?.FOODS?.forEach((food) => {
+            if (food.type === type.type) {
+                dataMenu.push(food);
+            }
+        });
+    }, [dataMenu, state?.FOODS, type?.type]);
 
     const addFood = (food) => {
         dispatch(actions.addFoodSelected(food));
@@ -67,7 +68,7 @@ const Menu = () => {
     const handleOrderFood = () => {
         let foods = [];
         state.FOODSELECTED.forEach((food) => {
-            foods.push({ id_food: food._id, quantity: food.quantity });
+            foods.push({ id_food: food._id, quantity: food.quantity, price: food.price });
         });
         let data = { id_table: state.TABLESERVING._id, id_bill: state.TABLESERVING.id_bill[0], foods: foods };
         orderFoodApi(data);
@@ -113,8 +114,7 @@ const Menu = () => {
     const handleCheckOut = () => {
         const find = billDetail.FODetail.find((e) => e.status === 'cooking');
         if (!find) {
-            checkOutApi({ id_bill: state.TABLESERVING.id_bill[0] }).then(
-                (res) => dispatch(actions.updateTableUsing(res.table)),
+            checkOutApi(dispatch, { id_bill: state.TABLESERVING.id_bill[0] }).then(() =>
                 navigate(from, { replace: true }),
             );
         } else {

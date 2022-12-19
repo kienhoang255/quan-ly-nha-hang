@@ -9,18 +9,39 @@ import { decodeToken } from 'react-jwt';
 import { getBillApi } from '~/services/bill';
 import { useNavigate } from 'react-router-dom';
 import { getFoodOrderApi } from '~/services/foodOrder';
+import { io } from 'socket.io-client';
 
 const cx = classNames.bind(styles);
 
 const IsFetching = ({ data, children }) => {
     const [IsFetch, setIsFetch] = useState(false);
     const [state, dispatch] = useStore();
-    const [role, setRole] = useState([]);
+    const [socket, setSocket] = useState();
     const from = '/home';
 
     const navigate = useNavigate();
 
-    // eslint-disable-next-line no-unused-vars
+    useEffect(() => {
+        socket?.on('table', (table) => {
+            dispatch(actions.updateTableUsing(table));
+        });
+
+        socket?.on('bill', (bill) => {
+            dispatch(actions.addNewBill(bill));
+        });
+
+        socket?.on('foodOrdered', (data) => {
+            dispatch(actions.addItemFO(data));
+            // getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
+        });
+
+        socket?.on('foodServed', (data) => {
+            dispatch(actions.updateFO(data.foodOrdered));
+            dispatch(actions.addNotification({ nameFood: data.nameFood, nameTable: data.nameTable, read: false }));
+            // dispatch(actions.addNewBill(bill));
+        });
+    }, [socket]);
+
     useEffect(() => {
         let token = document.cookie;
         let decode = decodeToken(token);
@@ -30,7 +51,7 @@ const IsFetching = ({ data, children }) => {
         const menuPromise = getMenuProvider().then((res) => dispatch(actions.getFood(res)));
         const billPromise = getBillApi().then((res) => dispatch(actions.addBill(res)));
         const FOPromise = getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
-        decode.job.forEach((element) => {
+        decode?.job.forEach((element) => {
             if (element === '2000' || element === '8000') {
                 promises.push(tablePromise);
                 promises.push(billPromise);
@@ -40,6 +61,7 @@ const IsFetching = ({ data, children }) => {
 
         if (token) {
             setIsFetch(true);
+            setSocket(io('ws://localhost:8000'));
             const newPromises = [...new Set(promises)];
             Promise.all(newPromises).then((value) => {
                 setIsFetch(false);

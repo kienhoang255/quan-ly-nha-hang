@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './MenuSetting.module.scss';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
@@ -38,11 +38,13 @@ const MenuSetting = () => {
         );
     };
 
-    state?.FOODS?.forEach((food) => {
-        if (food.type === type.type) {
-            dataMenu.push(food);
-        }
-    });
+    useMemo(() => {
+        state?.FOODS?.forEach((food) => {
+            if (food.type === type.type) {
+                dataMenu.push(food);
+            }
+        });
+    }, [dataMenu, state?.FOODS, type.type]);
 
     //food form
     const [img, setImg] = useState();

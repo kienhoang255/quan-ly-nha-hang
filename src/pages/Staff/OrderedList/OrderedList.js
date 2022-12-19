@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderedList.module.scss';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
@@ -13,27 +13,31 @@ const OrderedList = () => {
     const [state, dispatch] = useStore();
     const [filter, setFilter] = useState('cooking');
     let FO = [];
+    console.log(state.FOOD_ORDERED);
     useEffect(() => {
         document.title = 'Danh sách đặt món';
     });
 
-    state?.FOODS.forEach((element) => {
-        state.FOOD_ORDERED?.forEach((elementFO) => {
-            if (element._id === elementFO.id_food) {
-                FO.push({
-                    _id: elementFO._id,
-                    name: element.name,
-                    image: element.image,
-                    quantity: elementFO.quantity,
-                    status: elementFO.status,
-                    time: moment(elementFO.createdAt).format('HH:mm'),
-                });
-            }
+    const test = useCallback(() => {
+        state?.FOODS.forEach((element) => {
+            state.FOOD_ORDERED?.forEach((elementFO) => {
+                if (element._id === elementFO.id_food) {
+                    FO.push({
+                        _id: elementFO._id,
+                        name: element.name,
+                        image: element.image,
+                        quantity: elementFO.quantity,
+                        status: elementFO.status,
+                        time: moment(elementFO.createdAt).format('HH:mm'),
+                    });
+                }
+            });
         });
-    });
+    }, [FO, state?.FOODS, state.FOOD_ORDERED]);
+    test();
 
     const handleServed = (data) => {
-        updateFoodServedApi({ id_foodOrdered: data }).then((res) => dispatch(actions.updateFO(res.foodOrdered)));
+        updateFoodServedApi({ id_foodOrdered: data }).then((res) => {});
     };
 
     const handleCancel = (data) => {

@@ -2,7 +2,9 @@ import {
     ADDBILL,
     ADDFOODSELECTED,
     ADD_FO,
+    ADD_ITEM_FO,
     ADD_NEW_BILL,
+    ADD_NOTIFICATION,
     CLEARFOODSELECTED,
     EMPLOYEE,
     GETFOOD,
@@ -76,6 +78,11 @@ export const updateFO = (payload) => ({
     payload,
 });
 
+export const addItemFO = (payload) => ({
+    type: ADD_ITEM_FO,
+    payload,
+});
+
 //table
 export const getTable = (payload) => ({
     type: GETTABLE,
@@ -95,5 +102,11 @@ export const addBill = (payload) => ({
 
 export const addNewBill = (payload) => ({
     type: ADD_NEW_BILL,
+    payload,
+});
+//NOTIFICATION
+
+export const addNotification = (payload) => ({
+    type: ADD_NOTIFICATION,
     payload,
 });

@@ -2,7 +2,9 @@ import {
     ADDBILL,
     ADDFOODSELECTED,
     ADD_FO,
+    ADD_ITEM_FO,
     ADD_NEW_BILL,
+    ADD_NOTIFICATION,
     CLEARFOODSELECTED,
     EMPLOYEE,
     GETFOOD,
@@ -11,14 +13,15 @@ import {
     REMOVEFOODSELECTED,
     SETUSER,
     TABLESERVING,
-    UPDATETABLEUSING,
     UPDATE_FO,
     UPDATE_TABLE_USING,
 } from './constants';
 import {
     addBill,
     addFoodSelected,
+    addItemFO,
     addNewBill,
+    addNotification,
     add_FO,
     clearFoodSelected,
     getFood,
@@ -59,6 +62,8 @@ function reducer(state = initState, action) {
             return add_FO(state, action.payload);
         case UPDATE_FO:
             return update_FO(state, action.payload);
+        case ADD_ITEM_FO:
+            return addItemFO(state, action.payload);
         //TABLE
         case GETTABLE:
             return getTable(state, action.payload);
@@ -69,6 +74,9 @@ function reducer(state = initState, action) {
             return addBill(state, action.payload);
         case ADD_NEW_BILL:
             return addNewBill(state, action.payload);
+        //NOTIFICATION
+        case ADD_NOTIFICATION:
+            return addNotification(state, action.payload);
         default:
             return;
     }

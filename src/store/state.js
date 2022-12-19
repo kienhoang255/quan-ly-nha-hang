@@ -8,4 +8,5 @@ export const initState = {
     FOOD_ORDERED: [],
     FOODSELECTED: [],
     BILLS: [],
+    NOTIFICATION: [],
 };

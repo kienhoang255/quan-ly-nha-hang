@@ -6,17 +6,20 @@ export const LOGIN = 'login';
 export const MESSAGE = 'message';
 export const EMPLOYEE = 'employee';
 export const TABLESERVING = 'tableserving';
-//food
+//FOOD
 export const ADDFOODSELECTED = 'addFoodSelected';
 export const REMOVEFOODSELECTED = 'removeFoodSelected';
 export const CLEARFOODSELECTED = 'clearFoodSelected';
 export const GETFOOD = 'getFood';
-//food ordered
+//FOOD ORDERED
 export const ADD_FO = 'addFoodOrdered';
 export const UPDATE_FO = 'updateFoodOrdered';
-//table
+export const ADD_ITEM_FO = 'addItemFoodOrdered';
+//TABLE
 export const GETTABLE = 'getTable';
 export const UPDATE_TABLE_USING = 'updateTableUsing';
-//bill
+//BILL
 export const ADDBILL = 'addBill';
 export const ADD_NEW_BILL = 'addNewBill';
+//NOTIFICATION
+export const ADD_NOTIFICATION = 'addNotification';

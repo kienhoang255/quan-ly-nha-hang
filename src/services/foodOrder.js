@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { actions } from '~/store';
+import { postFoodOrdered, postFoodServed } from '~/socketIO';
 import { URL } from './index';
 
-export const orderFoodApi = (data) => {
-    axios.post(`${URL}food-ordered/`, data).then((res) => {
-        // console.log(res.data);
+export const orderFoodApi = async (data) => {
+    await axios.post(`${URL}food-ordered/`, data).then((res) => {
+        postFoodOrdered(res.data);
     });
 };
 
@@ -15,13 +15,14 @@ export const checkFoodOrderApi = async (data) => {
 };
 
 export const getFoodOrderApi = async () => {
-    return axios.get(`${URL}food-ordered/`).then((res) => {
+    return await axios.get(`${URL}food-ordered/`).then((res) => {
         return res.data;
     });
 };
 
 export const updateFoodServedApi = async (data) => {
     return axios.put(`${URL}food-ordered/served/`, data).then((res) => {
+        postFoodServed(res.data);
         return res.data;
     });
 };
