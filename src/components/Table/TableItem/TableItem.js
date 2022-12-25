@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './TableEmployeeItem.module.scss';
+import styles from './TableItem.module.scss';
 
 import { MdPeopleAlt } from 'react-icons/md';
 import { GoPrimitiveDot } from 'react-icons/go';
 
 const cx = classNames.bind(styles);
 
-const TableEmployeeItem = ({ data, onClick }) => {
+const TableItem = ({ data, onClick }) => {
     return (
         <div className={cx('content')} onClick={onClick}>
             <div className={cx('num-table')}>{data.name}</div>
@@ -22,4 +22,4 @@ const TableEmployeeItem = ({ data, onClick }) => {
     );
 };
 
-export default TableEmployeeItem;
+export default TableItem;

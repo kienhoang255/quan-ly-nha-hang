@@ -18,10 +18,31 @@ export const setMessage = (state, payload) => {
     const newState = { ...state, MESSAGE: payload };
     return newState;
 };
-
+//EMPLOYEE
 export const setEmployee = (state, payload) => {
     const newState = { ...state, EMPLOYEE: payload };
     return newState;
+};
+
+export const updateEmployee = (state, payload) => {
+    const newState = {
+        ...state,
+        EMPLOYEE: state.EMPLOYEE.map((e) => {
+            if (e?._id === payload?._id) {
+                return payload;
+            } else return e;
+        }),
+    };
+    return newState;
+};
+
+export const addEmployee = (state, payload) => {
+    const newState = { ...state, EMPLOYEE: [...state.EMPLOYEE, payload] };
+    return newState;
+};
+
+export const delEmployee = (state, payload) => {
+    return { ...state, EMPLOYEE: state.EMPLOYEE.filter((e) => e._id !== payload._id) };
 };
 //TABLESERVING
 export const setTableServing = (state, payload) => {
@@ -32,13 +53,11 @@ export const setTableServing = (state, payload) => {
 export const updateTableUsing = (state, payload) => {
     return {
         ...state,
-        TABLES:
-            // ...state.TABLES,
-            state.TABLES.map((e) => {
-                if (e._id === payload._id) {
-                    return payload;
-                } else return e;
-            }),
+        TABLES: state.TABLES.map((e) => {
+            if (e._id === payload._id) {
+                return payload;
+            } else return e;
+        }),
     };
 };
 
@@ -46,6 +65,30 @@ export const getTable = (state, payload) => {
     return {
         ...state,
         TABLES: payload,
+    };
+};
+
+export const addTable = (state, payload) => {
+    return {
+        ...state,
+        TABLES: [...state.TABLES, payload],
+    };
+};
+
+export const updateTable = (state, payload) => {
+    return {
+        ...state,
+        TABLES: state.TABLES.map((e) => {
+            if (e._id === payload._id) return payload;
+            else return e;
+        }),
+    };
+};
+
+export const deleteTable = (state, payload) => {
+    return {
+        ...state,
+        TABLES: state.TABLES.filter((e) => e._id !== payload._id),
     };
 };
 //FOOD
@@ -118,6 +161,27 @@ export const getFood = (state, payload) => {
     };
 };
 
+export const addFood = (state, payload) => {
+    return { ...state, FOODS: [...state.FOODS, payload] };
+};
+
+export const updateFood = (state, payload) => {
+    return {
+        ...state,
+        FOODS: state.FOODS.map((e) => {
+            if (e._id === payload._id) return payload;
+            else return e;
+        }),
+    };
+};
+
+export const deleteFood = (state, payload) => {
+    return {
+        ...state,
+        FOODS: state.FOODS.filter((e) => e._id !== payload._id),
+    };
+};
+
 //FOOD ORDERED
 export const add_FO = (state, payload) => {
     return { ...state, FOOD_ORDERED: payload };
@@ -138,7 +202,6 @@ export const addItemFO = (state, payload) => {
     const FORaw = [...new Set(state.FOOD_ORDERED)];
     payload.forEach((e) => FORaw.push(e));
     // const setFO = [...new Set(FORaw)];
-    // console.log(setFO);
     // return { ...state, FOOD_ORDERED: setFO };
     return { ...state, FOOD_ORDERED: FORaw };
 };

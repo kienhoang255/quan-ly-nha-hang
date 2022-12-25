@@ -6,7 +6,17 @@ import ModalUser from '../../Modal/ModalUser/ModalUser';
 
 const cx = classNames.bind(styles);
 
-const TableEmployee = ({ data }) => {
+const TableEmployee = ({
+    data,
+    submitUpdateEmployee,
+    submitDeleteEmployee,
+    notify,
+    setNotify,
+    refsById,
+    looking,
+    imageSel,
+    setImageSel,
+}) => {
     const table = data;
     return (
         <div className={cx('container')}>
@@ -21,15 +31,27 @@ const TableEmployee = ({ data }) => {
             <div className={cx('body')}>
                 {table?.map((tableItem, index) => {
                     return (
-                        <ModalUser className={cx('content')} data={tableItem} key={index}>
-                            <div>{index + 1}</div>
-                            <div>
-                                <Avatar />
+                        <ModalUser
+                            ref={refsById ? refsById[tableItem._id] : null}
+                            className={cx('content')}
+                            data={tableItem}
+                            key={index}
+                            submitUpdateEmployee={submitUpdateEmployee}
+                            submitDeleteEmployee={submitDeleteEmployee}
+                            notify={notify ? notify : null}
+                            setNotify={setNotify ? setNotify : null}
+                            looking={looking}
+                            imageSel={imageSel ? imageSel : null}
+                            setImageSel={setImageSel ? setImageSel : null}
+                        >
+                            <div className={cx('content-no')}>{index + 1}</div>
+                            <div className={cx('content-avatar_name')}>
+                                <Avatar img={tableItem?.avatar} />
                                 <span className={cx('name')}>{tableItem.username}</span>
                             </div>
-                            <div>{tableItem.phone}</div>
-                            <div>{tableItem.email}</div>
-                            <div>{tableItem.address}</div>
+                            <div className={cx('content-phone')}>{tableItem.phone}</div>
+                            <div className={cx('content-email')}>{tableItem.email}</div>
+                            <div className={cx('content-address')}>{tableItem.address}</div>
                         </ModalUser>
                     );
                 })}

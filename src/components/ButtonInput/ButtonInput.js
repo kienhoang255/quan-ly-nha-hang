@@ -4,28 +4,42 @@ import styles from './ButtonInputw.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function ButtonInput({ value, onClick, className, type = 'submit', ...passProps }) {
+export default function ButtonInput({
+    value,
+    onClick,
+    className,
+    variant = 'normal',
+    type = 'submit',
+    onChange,
+    full,
+    zoom,
+    active,
+    disable,
+    ...passProps
+}) {
     const props = {
         onClick,
         ...passProps,
     };
 
-    const classes = cx('container', {
-        [className]: className,
-    });
+    const variantMode = ['outline', 'normal', 'none'];
+    const getVariant = () => variantMode.filter((e) => e === variant).toString();
+
+    const classes = cx('content', getVariant(), { [className]: className, full, zoom, active, disable });
 
     return (
         <>
             {type === 'file' ? (
                 <div className={classes}>
-                    <span for="avatar">{value}</span>
+                    <label htmlFor="avatar">{value}</label>
                     <input
                         type="file"
                         id="avatar"
                         name="avatar"
-                        accept="image/png, image/jpeg"
+                        accept="image/*"
                         {...props}
                         style={{ display: 'none' }}
+                        onChange={onChange}
                     />
                 </div>
             ) : (

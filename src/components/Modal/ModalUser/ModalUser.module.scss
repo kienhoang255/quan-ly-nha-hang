@@ -22,11 +22,14 @@
 
 .main-content {
     background-color: $primaryBgColor;
-    width: 700px;
-    height: 600px;
+    width: 800px;
+    height: 650px;
     @include centerDirection(column);
     justify-content: space-evenly;
     border-radius: 8px !important;
+    @include window {
+        height: 600px;
+    }
 }
 
 .openContent {
@@ -43,6 +46,10 @@
     font-size: 28px;
     line-height: 1.5;
     font-weight: bold;
+    @include window {
+        font-size: 24px;
+        line-height: 1.2;
+    }
 }
 
 .body-modal {
@@ -54,16 +61,54 @@
         @include centerDirection(column);
 
         &-file {
+            color: #000;
             margin-top: 20px;
             border-radius: 8px !important;
             @include center;
             height: 40px;
-            width: 80px;
+            width: fit-content;
+            text-transform: uppercase;
+            padding: 0 10px;
+            @include window {
+                height: 30px;
+                font-size: 14px;
+            }
+        }
+        &-role {
+            justify-self: flex-end;
+            align-self: flex-end;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
     }
 
     &-info {
         font-size: 14px;
+    }
+}
+
+.job-note {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    justify-items: center;
+    margin: 0px 5px 20px 5px;
+    &-title {
+        grid-column: span 2;
+        // font-size: 16px;
+        margin: 6px;
+    }
+    &-selected {
+        @include center;
+        width: 100%;
+        height: 40px;
+        background-color: $bgColor;
+        color: #000;
+    }
+    &-not {
+        @include center;
+        width: 100%;
+        color: $primaryColor;
+        border: 1px solid $primaryColor;
     }
 }
 

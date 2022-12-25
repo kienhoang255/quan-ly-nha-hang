@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './OrderedList.module.scss';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
 import Button from '~/components/Button/Button';
-import { actions, useStore } from '~/store';
+import { useStore } from '~/store';
 import { updateFoodCancelApi, updateFoodServedApi } from '~/services/foodOrder';
 import moment from 'moment';
 
@@ -12,13 +12,13 @@ const cx = classNames.bind(styles);
 const OrderedList = () => {
     const [state, dispatch] = useStore();
     const [filter, setFilter] = useState('cooking');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let FO = [];
-    console.log(state.FOOD_ORDERED);
     useEffect(() => {
         document.title = 'Danh sách đặt món';
     });
 
-    const test = useCallback(() => {
+    useMemo(() => {
         state?.FOODS.forEach((element) => {
             state.FOOD_ORDERED?.forEach((elementFO) => {
                 if (element._id === elementFO.id_food) {
@@ -28,20 +28,19 @@ const OrderedList = () => {
                         image: element.image,
                         quantity: elementFO.quantity,
                         status: elementFO.status,
-                        time: moment(elementFO.createdAt).format('HH:mm'),
+                        time: moment(elementFO.createdAt).format('HH:mm:ss'),
                     });
                 }
             });
         });
     }, [FO, state?.FOODS, state.FOOD_ORDERED]);
-    test();
 
     const handleServed = (data) => {
-        updateFoodServedApi({ id_foodOrdered: data }).then((res) => {});
+        updateFoodServedApi({ id_foodOrdered: data });
     };
 
     const handleCancel = (data) => {
-        updateFoodCancelApi({ id_foodOrdered: data }).then((res) => dispatch(actions.updateFO(res)));
+        updateFoodCancelApi({ id_foodOrdered: data });
     };
 
     return (

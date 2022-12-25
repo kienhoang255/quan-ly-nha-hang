@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const MenuLayout = ({ title, children, className, state, onClickBack }) => {
+const MenuLayout = ({ title, children, className, nameClient, onClickBack }) => {
     return (
         <div className={cx('container')}>
             <div className={cx('title')}>
@@ -16,7 +16,7 @@ const MenuLayout = ({ title, children, className, state, onClickBack }) => {
                     <IoMdArrowRoundBack />
                 </Link>
                 <span className={cx('main-title')}>{title}</span>
-                <Avatar name={state.nameClient} />
+                <Avatar useName name={nameClient} />
             </div>
 
             <div className={cx('content', { [className]: className })}>{children}</div>

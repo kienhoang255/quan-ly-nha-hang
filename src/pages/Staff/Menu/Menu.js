@@ -28,6 +28,7 @@ const Menu = () => {
         total: '',
     });
     const [alertModal, setAlertModal] = useState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let dataMenu = [];
     const [nameButtonType, setNameButtonType] = useState(sortTypeDuplicate(state?.FOODS));
     const [type, setType] = useState(nameButtonType[0]);
@@ -122,9 +123,13 @@ const Menu = () => {
         }
     };
 
+    useMemo(() => {
+        handleCheckFoodOrder();
+    }, []);
+
     let totalPrice = state.FOODSELECTED?.reduce((sum, current) => sum + current.price * current.quantity, 0);
     return (
-        <MenuLayout title="thực đơn" state={state.TABLESERVING} onClickBack={clickBack}>
+        <MenuLayout title="thực đơn" nameClient={billDetail.email} onClickBack={clickBack}>
             <div className={cx('container')}>
                 <div className={cx('select-type')}>
                     {nameButtonType?.map((type) => (
@@ -156,6 +161,8 @@ const Menu = () => {
                     data={state.FOODSELECTED}
                     totalPrice={totalPrice ? totalPrice : 0}
                     handleOrderFood={handleOrderFood}
+                    onClickAddFood={addFood}
+                    onClickRemoveFood={removeFood}
                 />
             </div>
         </MenuLayout>

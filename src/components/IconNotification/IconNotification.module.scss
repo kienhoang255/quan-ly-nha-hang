@@ -6,10 +6,14 @@
 
 .tippy {
     gap: 20px;
+    height: 800px;
+    overflow: hidden;
+    overflow-y: auto;
+    @include scrollBar($bgColor);
 }
 
 .main {
-    width: 200px;
+    width: 250px;
     background-color: $primaryBgColor;
     border-radius: 8px;
     padding: 10px;
@@ -20,12 +24,16 @@
     color: $bgColor;
     font-size: 18px;
     text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
 }
 .main-title {
     text-transform: uppercase;
 }
 
 .tippy-content {
+    @include center;
+    justify-content: space-between;
     font-size: 16px;
     &-food {
         margin-right: 5px;
@@ -38,6 +46,15 @@
         & span {
             color: $primaryColor;
             font-size: 16px;
+        }
+    }
+    &-btn {
+        display: inline;
+        width: 40px;
+        font-size: 40px;
+        color: $primaryColor;
+        &:hover {
+            background-color: transparent;
         }
     }
 }

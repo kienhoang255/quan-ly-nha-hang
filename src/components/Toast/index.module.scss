@@ -5,16 +5,19 @@ $radius: 10px;
 .content {
     position: absolute;
     background-color: white;
-    width: 300px;
+    width: max-content;
+    min-width: 300px;
+    padding: 0 10px;
     height: 60px;
     margin: 20px;
+    gap: 10px;
     @include border($radius: $radius);
     @include centerDirection(row);
 
     &.top-mid {
         top: $distance + 10px;
-        left: auto;
-        right: auto;
+        left: calc(50% - 10%);
+        right: calc(50% - 10%);
         animation: slideDown ease 1s, slideUp linear 1s 2s forwards;
     }
 

@@ -10,6 +10,8 @@ import { getBillApi } from '~/services/bill';
 import { useNavigate } from 'react-router-dom';
 import { getFoodOrderApi } from '~/services/foodOrder';
 import { io } from 'socket.io-client';
+import { getAllEmployee } from '~/services/employee';
+import { getToLocalStorage } from '~/utils/saveToBrowser';
 
 const cx = classNames.bind(styles);
 
@@ -22,13 +24,17 @@ const IsFetching = ({ data, children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        socket?.on('table', (table) => {
-            dispatch(actions.updateTableUsing(table));
-        });
+        let token = document.cookie;
+        let decode = decodeToken(token);
 
-        socket?.on('bill', (bill) => {
-            dispatch(actions.addNewBill(bill));
-        });
+        if (decode?.job.find((e) => e === 'table')) {
+            socket?.on('table', (table) => {
+                dispatch(actions.updateTableUsing(table));
+            });
+            socket?.on('bill', (bill) => {
+                dispatch(actions.addNewBill(bill));
+            });
+        }
 
         socket?.on('foodOrdered', (data) => {
             dispatch(actions.addItemFO(data));
@@ -37,8 +43,19 @@ const IsFetching = ({ data, children }) => {
 
         socket?.on('foodServed', (data) => {
             dispatch(actions.updateFO(data.foodOrdered));
-            dispatch(actions.addNotification({ nameFood: data.nameFood, nameTable: data.nameTable, read: false }));
-            // dispatch(actions.addNewBill(bill));
+            dispatch(
+                actions.addNotification({
+                    nameFood: data.nameFood,
+                    nameTable: data.nameTable,
+                    time: data.time,
+                    read: false,
+                    id_food: data.id_food,
+                }),
+            );
+        });
+
+        socket?.on('foodCancel', (data) => {
+            dispatch(actions.updateFO(data.foodOrdered));
         });
     }, [socket]);
 
@@ -46,17 +63,29 @@ const IsFetching = ({ data, children }) => {
         let token = document.cookie;
         let decode = decodeToken(token);
         let promises = [];
-        dispatch(actions.setUser(decode));
+        let avatar = getToLocalStorage('avatar');
+        dispatch(
+            actions.setUser({
+                username: decode?.username,
+                address: decode?.address,
+                email: decode?.email,
+                phone: decode?.phone,
+                job: decode?.job,
+                avatar: avatar || null,
+            }),
+        );
         const tablePromise = getTableProvider().then((res) => dispatch(actions.getTable(res)));
         const menuPromise = getMenuProvider().then((res) => dispatch(actions.getFood(res)));
         const billPromise = getBillApi().then((res) => dispatch(actions.addBill(res)));
         const FOPromise = getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
+        const employeePromise = getAllEmployee(dispatch);
         decode?.job.forEach((element) => {
-            if (element === '2000' || element === '8000') {
+            if (element === 'table' || element === 'Mtable') {
                 promises.push(tablePromise);
                 promises.push(billPromise);
-            } else if (element === '5000' || element === '9000') promises.push(menuPromise);
-            else if (element === '4000') promises.push(FOPromise);
+            } else if (element === 'menu' || element === 'Mmenu') promises.push(menuPromise);
+            else if (element === 'FO') promises.push(FOPromise);
+            else if (element === 'employee' || element === 'Memployee') promises.push(employeePromise);
         });
 
         if (token) {

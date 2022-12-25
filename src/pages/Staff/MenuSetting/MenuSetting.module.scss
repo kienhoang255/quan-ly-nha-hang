@@ -26,9 +26,9 @@
     // & > .select-btn:last-child {
     //     border-radius: 0 0 10px 10px;
     // }
-    // @include window {
-    //     max-height: 55%;
-    // }
+    @include window {
+        max-height: 650px;
+    }
 }
 
 .select-btn {

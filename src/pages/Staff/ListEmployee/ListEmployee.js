@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 const ListEmployee = () => {
     useEffect(() => {
-        document.title = 'List Employee';
+        document.title = 'Danh sách nhân viên';
     });
     const [state, dispatch] = useStore();
     const handleGetEmployee = () => {
@@ -19,8 +19,8 @@ const ListEmployee = () => {
     };
 
     return (
-        <ContentLayout title={'employee'} className={cx('content')}>
-            <TableEmployee data={state?.EMPLOYEE} />
+        <ContentLayout title={'Danh sách nhân viên'} className={cx('content')}>
+            <TableEmployee data={state?.EMPLOYEE} looking={true} />
             <Button onClick={handleGetEmployee} style={{ marginTop: '20px' }}>
                 Refresh
             </Button>

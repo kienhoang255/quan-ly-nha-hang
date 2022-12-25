@@ -5,16 +5,32 @@ import Button from '../Button/Button';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { AiFillSetting } from 'react-icons/ai';
 import ModalSettingFood from '../Modal/ModalSettingFood/ModalSettingFood';
+import { formatVND } from '~/utils';
 
 const cx = classNames.bind(styles);
 
-const FoodItem = ({ food, quantity, id, onClickAddFood, onClickRemoveFood, setting }) => {
+const FoodItem = ({
+    food,
+    quantity,
+    id,
+    onClickAddFood,
+    onClickRemoveFood,
+    setting,
+    handleSubmitUpdateFood,
+    handleSubmitDeleteFood,
+    notify,
+    setNotify,
+    img,
+    setImg,
+    refsById,
+}) => {
     let amount;
     quantity.forEach((element) => {
         if (element._id === id) {
             amount = element.quantity;
         }
     });
+
     return (
         <div className={cx('content')}>
             <div className={cx('food-img')}>
@@ -30,13 +46,25 @@ const FoodItem = ({ food, quantity, id, onClickAddFood, onClickRemoveFood, setti
             </div>
             <div className={cx('title')}>
                 <div className={cx('food-name')}>{food?.name}</div>
-                <div className={cx('food-price')}>{food?.price}$</div>
+                <div className={cx('food-price')}>{formatVND(food?.price)}</div>
             </div>
             {setting ? (
-                <ModalSettingFood className={cx('action-btn')} data={food}>
+                <ModalSettingFood
+                    ref={refsById[food._id]}
+                    className={cx('action-btn')}
+                    data={food}
+                    handleSubmitUpdateFood={handleSubmitUpdateFood}
+                    handleSubmitDeleteFood={handleSubmitDeleteFood}
+                    updateFood
+                    notify={notify}
+                    setNotify={setNotify}
+                    img={img}
+                    setImg={setImg}
+                >
                     <Button className={cx('setting-btn')}>
                         <AiFillSetting />
                     </Button>
+                    {/* <ButtonInput value={AiFillSetting } /> */}
                 </ModalSettingFood>
             ) : (
                 <div className={cx('action-btn')}>

@@ -31,11 +31,18 @@ $grid-columns: 8% 27% 13% 27% 25%;
 }
 
 .body {
+    height: 710px;
+    overflow: hidden;
+    overflow-y: auto;
     div:first-child {
         border-top: none;
     }
     div:last-child {
         border-radius: 0 0 8px 8px;
+    }
+    @include scrollBar($bgColor);
+    @include window {
+        height: 580px;
     }
 }
 
@@ -46,14 +53,32 @@ $grid-columns: 8% 27% 13% 27% 25%;
     color: $primaryColor;
     background-color: $primaryBgColor;
     border-top: 1px solid $bgColor;
-    & > div {
-        @include center;
-    }
 
     &:hover {
         background-color: $secondaryBgColor;
         cursor: pointer;
     }
+    &-no {
+        @include center;
+    }
+
+    &-avatar_name {
+        width: 100%;
+        padding: 0 0 0 10%;
+        @include center;
+        justify-content: flex-start;
+    }
+
+    &-phone {
+        @extend .content-no;
+    }
+    &-email {
+        @extend .content-no;
+    }
+    &-address {
+        @extend .content-no;
+    }
+
     @include window {
         font-size: 14px;
         height: 60px;

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { actions } from '~/store';
-import { getToLocalStorage, removeItemFromLS } from '~/utils/saveToBrowser';
+import { getToLocalStorage, removeItemFromLS, setToLocalStorage } from '~/utils/saveToBrowser';
 import { day, headers, hour, minute, month, URL, year } from './index';
 
 export const login = (data, dispatch) => {
     axios
         .post(`${URL}user/login`, data)
         .then((res) => {
+            if (res.data.avatar) setToLocalStorage('avatar', res.data.avatar);
             document.cookie = `token=${res.data.createToken}`;
             window.location.reload(true);
             dispatch(actions.setMessage({ type: 'success', message: 'Đăng nhâp thành công' }));
@@ -26,7 +27,7 @@ export const test = () => {
 
 export const logout = () => {
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    removeItemFromLS('user');
+    removeItemFromLS('avatar');
 };
 
 const staff = getToLocalStorage('user');

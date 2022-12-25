@@ -9,6 +9,10 @@
     border-radius: 8px;
     height: 80px;
     width: 400px;
+    font-size: 22px;
+    font-weight: bold;
+    @include center;
+    gap: 20px;
     @include window {
         width: 300px;
         height: 70px;
@@ -79,8 +83,16 @@ $padding: 20px;
     font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
+    align-items: center;
     &-quantity {
         justify-self: center;
+        @include center;
+        gap: 12px;
+        &-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
     }
 }
 

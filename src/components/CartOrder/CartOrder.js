@@ -5,10 +5,11 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Button from '../Button/Button';
 import Logo from '../Logo/Logo';
 import { formatVND } from '~/utils';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 const cx = classNames.bind(styles);
 
-const CartOrder = ({ data, totalPrice, handleOrderFood }) => {
+const CartOrder = ({ data, totalPrice, handleOrderFood, onClickAddFood, onClickRemoveFood }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenAnimation, setIsOpenAnimation] = useState(false);
 
@@ -33,10 +34,8 @@ const CartOrder = ({ data, totalPrice, handleOrderFood }) => {
     return (
         <>
             <div className={cx('container')} onClick={handleSetModal}>
-                <div>
-                    <AiOutlineShoppingCart />
-                    {formatVND(totalPrice)}
-                </div>
+                <AiOutlineShoppingCart />
+                {formatVND(totalPrice)}
             </div>
             {isOpen && (
                 <div
@@ -60,7 +59,21 @@ const CartOrder = ({ data, totalPrice, handleOrderFood }) => {
                                     <div className={cx('item')} key={index}>
                                         <div className={cx('item-num')}>{index + 1}</div>
                                         <div className={cx('item-name')}>{food?.name}</div>
-                                        <div className={cx('item-quantity')}>{food?.quantity}</div>
+                                        <div className={cx('item-quantity')}>
+                                            <Button
+                                                className={cx('item-quantity-btn')}
+                                                onClick={() => onClickRemoveFood(food)}
+                                            >
+                                                <MdKeyboardArrowLeft />
+                                            </Button>
+                                            {food?.quantity}
+                                            <Button
+                                                className={cx('item-quantity-btn')}
+                                                onClick={() => onClickAddFood(food)}
+                                            >
+                                                <MdKeyboardArrowRight />
+                                            </Button>
+                                        </div>
                                         <div className={cx('item-total')}>
                                             {formatVND(food?.price * food?.quantity)}
                                         </div>

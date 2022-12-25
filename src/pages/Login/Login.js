@@ -9,7 +9,7 @@ import { login } from '~/services/users';
 import Toast from '~/components/Toast';
 import isEmpty from '~/validation/isEmpty';
 import isEmail from '~/validation/isEmail';
-import { useNavigate } from 'react-router-dom';
+import { isPhoneNumber } from '~/validation/isPhone';
 
 const cx = classNames.bind(styles);
 
@@ -32,9 +32,6 @@ export default function Login() {
         messageErr: '',
     });
 
-    const navigate = useNavigate();
-    const from = '/home';
-
     const handleOnSubmit = (e) => {
         e.preventDefault();
         const form = new FormData(e.target);
@@ -42,21 +39,25 @@ export default function Login() {
 
         const isEmptyEmail = isEmpty(passForm, 'email');
         const isEmptyPassword = isEmpty(passForm, 'password');
+        const checkPhone = isPhoneNumber(passForm.email);
         const isCorrectEmail = isEmail(passForm);
 
         if (!isEmptyEmail) setEmail({ ...email, messageErr: 'Không được để trống' });
-        else if (!isCorrectEmail) setEmail({ ...email, messageErr: 'Đây không phải email' });
-        else setEmail({ ...email, messageErr: '' });
+        else setPassword({ ...password, messageErr: '' });
+
+        if (!isCorrectEmail) {
+            if (!checkPhone) setEmail({ ...email, messageErr: 'Đây không phải SDT hoac email' });
+            else setEmail({ ...email, messageErr: '' });
+        } else setEmail({ ...email, messageErr: '' });
 
         if (!isEmptyPassword) setPassword({ ...password, messageErr: 'Không được để trống' });
         else setPassword({ ...password, messageErr: '' });
 
-        if (isEmptyEmail && isEmptyPassword && isCorrectEmail) {
+        if (isEmptyEmail && isEmptyPassword && (checkPhone || isCorrectEmail)) {
             login(passForm, dispatch);
             setShowToast(true);
             setTimeout(() => {
                 setShowToast(false);
-                navigate(from, { replace: true });
             }, 2000);
         }
     };

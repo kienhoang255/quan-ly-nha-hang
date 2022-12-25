@@ -1,10 +1,38 @@
 @use '/src//assets//styles/' as *;
 
-.container {
-    width: 100%;
-    height: 50px;
+.content {
+    height: 40px;
+    width: 120px;
+    @include centerDirection(row);
+    @include window {
+        height: 34px;
+        width: 110px;
+    }
+}
+
+.normal {
     background-color: $primaryColor;
+    @include btn($border-radius: 8px);
+}
+
+.outline {
+    @include btn($border-radius: 8px);
+    color: $primaryColor;
+    background-color: transparent;
+    border: 1px solid $primaryColor;
+    &:hover {
+        background-color: $bgColor;
+        color: black;
+    }
+}
+
+.none {
+    @include btn($border-radius: 0px);
+
     color: #fff;
-    @include btn($border-radius: 6px);
-    @include fontBold($size: 20 px);
+    background-color: transparent;
+    // border: 1px solid $primaryColor;
+    &:hover {
+        background-color: $bgColor;
+    }
 }

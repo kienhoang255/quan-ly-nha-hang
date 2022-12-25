@@ -1,11 +1,17 @@
 import {
     ADDBILL,
     ADDFOODSELECTED,
+    ADD_EMPLOYEE,
     ADD_FO,
+    ADD_FOOD,
     ADD_ITEM_FO,
     ADD_NEW_BILL,
     ADD_NOTIFICATION,
+    ADD_TABLE,
     CLEARFOODSELECTED,
+    DELETE_FOOD,
+    DELETE_TABLE,
+    DEL_EMPLOYEE,
     EMPLOYEE,
     GETFOOD,
     GETTABLE,
@@ -15,7 +21,10 @@ import {
     RESIGTER,
     SETUSER,
     TABLESERVING,
+    UPDATE_EMPLOYEE,
     UPDATE_FO,
+    UPDATE_FOOD,
+    UPDATE_TABLE,
     UPDATE_TABLE_USING,
 } from './constants';
 //USER
@@ -39,17 +48,58 @@ export const setMessage = (payload) => ({
     type: MESSAGE,
     payload,
 });
-
+//EMPLOYEE
 export const setEmployee = (payload) => ({
     type: EMPLOYEE,
     payload,
 });
 
+export const updateEmployee = (payload) => ({
+    type: UPDATE_EMPLOYEE,
+    payload,
+});
+
+export const addEmployee = (payload) => ({
+    type: ADD_EMPLOYEE,
+    payload,
+});
+
+export const delEmployee = (payload) => ({
+    type: DEL_EMPLOYEE,
+    payload,
+});
+//TABLESERVING
 export const setTableServing = (payload) => ({
     type: TABLESERVING,
     payload,
 });
-//food
+
+//TABLE
+export const getTable = (payload) => ({
+    type: GETTABLE,
+    payload,
+});
+
+export const addTable = (payload) => ({
+    type: ADD_TABLE,
+    payload,
+});
+
+export const updateTable = (payload) => ({
+    type: UPDATE_TABLE,
+    payload,
+});
+
+export const deleteTable = (payload) => ({
+    type: DELETE_TABLE,
+    payload,
+});
+
+export const updateTableUsing = (payload) => ({
+    type: UPDATE_TABLE_USING,
+    payload,
+});
+//FOOD
 export const addFoodSelected = (payload) => ({
     type: ADDFOODSELECTED,
     payload,
@@ -67,7 +117,21 @@ export const getFood = (payload) => ({
     payload,
 });
 
-//food ordered
+export const addFood = (payload) => ({
+    type: ADD_FOOD,
+    payload,
+});
+export const updateFood = (payload) => ({
+    type: UPDATE_FOOD,
+    payload,
+});
+
+export const deleteFood = (payload) => ({
+    type: DELETE_FOOD,
+    payload,
+});
+
+//FOOD ORDERED
 export const addFO = (payload) => ({
     type: ADD_FO,
     payload,
@@ -80,17 +144,6 @@ export const updateFO = (payload) => ({
 
 export const addItemFO = (payload) => ({
     type: ADD_ITEM_FO,
-    payload,
-});
-
-//table
-export const getTable = (payload) => ({
-    type: GETTABLE,
-    payload,
-});
-
-export const updateTableUsing = (payload) => ({
-    type: UPDATE_TABLE_USING,
     payload,
 });
 

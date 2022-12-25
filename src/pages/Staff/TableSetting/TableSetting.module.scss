@@ -61,4 +61,8 @@
     height: 60px;
     font-size: 30px;
     font-weight: bold;
+    @include window {
+        width: 45px;
+        height: 45px;
+    }
 }

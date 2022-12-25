@@ -1,0 +1,22 @@
+@use '../../../assets/styles/' as *;
+
+.content {
+    background-color: $secondaryBgColor;
+    display: grid;
+}
+
+.form-add {
+    border: 1px solid $bgColor;
+    border-radius: 8px;
+}
+
+.btn-add {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 30px;
+    font-weight: bold;
+}

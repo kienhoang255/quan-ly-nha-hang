@@ -8,14 +8,14 @@ import Label from '~/components/Label/Label';
 import Button from '~/components/Button/Button';
 import { checkIn, logout } from '~/services/users';
 import { useNavigate } from 'react-router-dom';
+import { useStore } from '~/store';
 
 const cx = classNames.bind(styles);
 
 const Info = () => {
-    const user = getToLocalStorage('user');
+    const [state] = useStore();
     const navigate = useNavigate();
     const from = '/';
-
     const handleLogout = () => {
         logout();
         navigate(from, { replace: true });
@@ -31,16 +31,16 @@ const Info = () => {
         <div className={cx('container')}>
             <div className={cx('main')}>
                 <div className={cx('main-avatar')}>
-                    <Avatar big setting onClick={handleChangeAvatar} />
+                    <Avatar big setting onClick={handleChangeAvatar} img={state.USER.avatar} />
                     <span className={cx('check-in', { checkIn: true })}> Đã check in </span>
                 </div>
                 <div className={cx('main-info')}>
                     <div className={cx('main-info-title')}>Profile</div>
                     <div className={cx('main-info-content')}>
-                        <Label title={'Tên đầy đủ'}>{user?.username}</Label>
-                        <Label title={'Email'}>{user?.email}</Label>
-                        <Label title={'Số điện thoại'}>{user?.phone}</Label>
-                        <Label title={'Công việc'}>{user?.des}</Label>
+                        <Label title={'Tên đầy đủ'}>{state.USER?.username}</Label>
+                        <Label title={'Email'}>{state.USER?.email}</Label>
+                        <Label title={'Số điện thoại'}>{state.USER?.phone}</Label>
+                        <Label title={'Địa chỉ'}>{state.USER?.address}</Label>
                     </div>
                 </div>
             </div>

@@ -9,9 +9,12 @@
 .title {
     width: 200px;
     height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     @include center;
+    @include window {
+        font-size: 14px;
+    }
 }
 
 .rad-btn {
@@ -25,6 +28,7 @@
     &:not(:checked) {
         + .title {
             border: 1px solid $bgColor;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         }
     }
 }

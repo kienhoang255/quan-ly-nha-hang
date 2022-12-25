@@ -4,6 +4,10 @@
     height: 40px;
     width: 120px;
     @include centerDirection(row);
+    @include window {
+        height: 34px;
+        width: 110px;
+    }
 }
 
 .left-icon {

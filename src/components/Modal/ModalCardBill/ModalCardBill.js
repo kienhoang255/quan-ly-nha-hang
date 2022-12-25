@@ -78,7 +78,18 @@ const ModalCardBill = ({ children, className, handleCheckFoodOrder, handleCheckO
                                 <div>Tổng</div>
                                 <div>
                                     {formatVND(
-                                        billDetail.FODetail.reduce(
+                                        billDetail.FODetail.filter((e) => e.status !== 'cancel').reduce(
+                                            (sum, current) => sum + current.price * current.quantity,
+                                            0,
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                            <div className={cx('total')}>
+                                <div>Tổng tiền món đã phục vụ</div>
+                                <div>
+                                    {formatVND(
+                                        billDetail.FODetail.filter((e) => e.status === 'served').reduce(
                                             (sum, current) => sum + current.price * current.quantity,
                                             0,
                                         ),

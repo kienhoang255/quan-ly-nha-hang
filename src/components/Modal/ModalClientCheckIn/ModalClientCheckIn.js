@@ -6,12 +6,13 @@ import Button from '../../Button/Button';
 
 const cx = classNames.bind(styles);
 
-const ModalClientCheckIn = ({ children, className, onSubmit, onClick }) => {
+const ModalClientCheckIn = ({ children, className, onSubmit, onClick, notify, setNotify }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenAnimation, setIsOpenAnimation] = useState(false);
     const handleOnChildren = () => {
         setIsOpenAnimation(!isOpenAnimation);
         onClick();
+        setNotify('');
         setTimeout(() => {
             setIsOpen(!isOpen);
         }, 150);
@@ -49,13 +50,13 @@ const ModalClientCheckIn = ({ children, className, onSubmit, onClick }) => {
                                 type="text"
                                 name="email"
                                 placeholder="Email/Phone..."
-                                notify={''}
+                                notify={notify}
                                 className={cx('text')}
                             />
                             <Button variant="outline" onClick={closeModal}>
                                 Hủy
                             </Button>
-                            <Button onClick={handleOnChildren}>Check in</Button>
+                            <Button>Check in</Button>
                         </form>
                     </div>
                 </div>

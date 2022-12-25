@@ -19,6 +19,13 @@ const ListFood = ({
     handleCheckOut,
     billDetail,
     alertModal,
+    handleSubmitUpdateFood,
+    handleSubmitDeleteFood,
+    notify,
+    setNotify,
+    img,
+    setImg,
+    refsById,
 }) => {
     return (
         <div className={cx('container')}>
@@ -46,6 +53,13 @@ const ListFood = ({
                         setting={setting}
                         onClickAddFood={onClickAddFood}
                         onClickRemoveFood={onClickRemoveFood}
+                        handleSubmitUpdateFood={handleSubmitUpdateFood}
+                        handleSubmitDeleteFood={handleSubmitDeleteFood}
+                        notify={notify}
+                        setNotify={setNotify}
+                        img={img}
+                        setImg={setImg}
+                        refsById={refsById}
                     />
                 ))}
                 <div>123</div>

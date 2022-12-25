@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postFoodOrdered, postFoodServed } from '~/socketIO';
+import { postFoodCancel, postFoodOrdered, postFoodServed } from '~/socketIO';
 import { URL } from './index';
 
 export const orderFoodApi = async (data) => {
@@ -29,6 +29,7 @@ export const updateFoodServedApi = async (data) => {
 
 export const updateFoodCancelApi = async (data) => {
     return axios.put(`${URL}food-ordered/cancel/`, data).then((res) => {
+        postFoodCancel({ foodOrdered: res.data });
         return res.data;
     });
 };

@@ -4,18 +4,22 @@ import styles from './ListTable.module.scss';
 import Button from '~/components/Button/Button';
 import ModalClientCheckIn from '~/components/Modal/ModalClientCheckIn/ModalClientCheckIn';
 import ContentLayout from '~/layout/ContentLayout/ContentLayout';
-import TableEmployeeItem from '~/components/Table/TableEmployeeItem/TableEmployeeItem';
+import isEmpty from '~/validation/isEmpty';
 
 import { actions, useStore } from '~/store';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { sortStageDuplicate } from '~/utils';
 import { clientCheckIn } from '~/services/bill';
+import TableItem from '~/components/Table/TableItem/TableItem';
+import isEmail from '~/validation/isEmail';
+import { isPhoneNumber } from '~/validation/isPhone';
 
 const cx = classNames.bind(styles);
 
 const ListTable = () => {
     const [state, dispatch] = useStore();
+    const [notify, setNotify] = useState('');
     useEffect(() => {
         document.title = 'Danh sách bàn ăn';
     });
@@ -64,15 +68,27 @@ const ListTable = () => {
         const checkInForm = new FormData(e.target);
         checkInForm.append('id_table', state.TABLESERVING._id);
         const dataCheckIn = Object.fromEntries(checkInForm.entries());
-        clientCheckIn(dispatch, dataCheckIn);
+        if (!isEmpty(dataCheckIn, 'email')) {
+            setNotify('Không được để trống');
+        } else if (!isEmail(dataCheckIn, 'email')) {
+            if (isPhoneNumber(dataCheckIn, 'email')) {
+                setNotify('Đây không phải là email');
+            } else {
+                clientCheckIn(dispatch, dataCheckIn);
+                navigate(from);
+            }
+        } else {
+            clientCheckIn(dispatch, dataCheckIn);
+            navigate(from);
+        }
     };
 
     return (
         <ContentLayout title="Danh sách bàn ăn">
             <div className={cx('list-button')} onLoad={handleOnLoad}>
-                <Button className={cx('btn-search')}>
+                {/* <Button className={cx('btn-search')}>
                     <AiOutlineSearch />
-                </Button>
+                </Button> */}
                 {nameButtonStage?.map((e) => (
                     <Button
                         key={e?.stage}
@@ -89,8 +105,15 @@ const ListTable = () => {
             <div className={cx('content')}>
                 {dataTable?.map((data, index) => {
                     return (
-                        <ModalClientCheckIn key={index} onSubmit={submitTable} onClick={() => getStatus(data)}>
-                            <TableEmployeeItem onClick={() => getDataTable(data)} data={data} />
+                        <ModalClientCheckIn
+                            key={index}
+                            onSubmit={submitTable}
+                            //redirect users to menu page
+                            onClick={() => getStatus(data)}
+                            notify={notify}
+                            setNotify={setNotify}
+                        >
+                            <TableItem onClick={() => getDataTable(data)} data={data} />
                         </ModalClientCheckIn>
                     );
                 })}
