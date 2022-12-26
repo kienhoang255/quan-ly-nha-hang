@@ -46,6 +46,10 @@ const Menu = () => {
         );
     };
 
+    useEffect(() => {
+        onClickType(nameButtonType[0]);
+    }, []);
+
     useMemo(() => {
         state?.FOODS?.forEach((food) => {
             if (food.type === type.type) {

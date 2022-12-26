@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ListTable.module.scss';
 import Button from '~/components/Button/Button';
@@ -23,6 +23,13 @@ const ListTable = () => {
     useEffect(() => {
         document.title = 'Danh sách bàn ăn';
     });
+    const refsById = useMemo(() => {
+        const refs = {};
+        state?.TABLES.forEach((item) => {
+            refs[item._id] = React.createRef(null);
+        });
+        return refs;
+    }, [state?.TABLES]);
     const navigate = useNavigate();
     const from = '/menu';
 
@@ -75,11 +82,11 @@ const ListTable = () => {
                 setNotify('Đây không phải là email');
             } else {
                 clientCheckIn(dispatch, dataCheckIn);
-                navigate(from);
+                refsById[state.TABLESERVING._id].current.closeModal();
             }
         } else {
             clientCheckIn(dispatch, dataCheckIn);
-            navigate(from);
+            refsById[state.TABLESERVING._id].current.closeModal();
         }
     };
 
@@ -106,6 +113,7 @@ const ListTable = () => {
                 {dataTable?.map((data, index) => {
                     return (
                         <ModalClientCheckIn
+                            ref={refsById[data._id]}
                             key={index}
                             onSubmit={submitTable}
                             //redirect users to menu page

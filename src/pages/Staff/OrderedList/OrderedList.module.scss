@@ -37,14 +37,17 @@
 
 .btn-filter-cooking {
     width: fit-content;
+    color: black;
     background-color: $warningColor;
 }
 .btn-filter-served {
     width: fit-content;
+    color: black;
     background-color: $successColor;
 }
 .btn-filter-cancel {
     width: fit-content;
+    color: black;
     background-color: $dangerColor;
 }
 
@@ -101,6 +104,7 @@
 }
 
 .btn-confirm {
+    color: black;
     background-color: $successColor;
 }
 

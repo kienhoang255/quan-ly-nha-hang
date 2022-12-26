@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-export const URL = 'http://localhost:5000/';
-
+// export const URL = 'http://localhost:5000/';
+export const URL = 'https://quan-ly-nha-hang-be-1.vercel.app/';
 const token = document.cookie;
 export const headers = {
     headers: {

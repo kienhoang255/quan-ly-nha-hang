@@ -35,9 +35,7 @@ const MenuSetting = () => {
     });
     const [nameButtonType, setNameButtonType] = useState(sortTypeDuplicate(state?.FOODS));
     const [type, setType] = useState(nameButtonType[0]);
-    useEffect(() => {
-        onClickType(type);
-    }, []);
+
     useEffect(() => {
         setNameButtonType(sortTypeDuplicate(state?.FOODS));
     }, [state.FOODS]);
@@ -54,7 +52,9 @@ const MenuSetting = () => {
             }),
         );
     };
-
+    useEffect(() => {
+        onClickType(nameButtonType[0]);
+    }, []);
     useMemo(() => {
         state?.FOODS?.forEach((food) => {
             if (food.type === type.type) {

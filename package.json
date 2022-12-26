@@ -15,6 +15,7 @@
         "react-file-base64": "^1.0.3",
         "react-icons": "^4.6.0",
         "react-jwt": "^1.1.7",
+        "react-pusher": "^0.2.0",
         "react-router-dom": "^6.4.2",
         "react-scripts": "^5.0.1",
         "socket.io-client": "^4.5.4",

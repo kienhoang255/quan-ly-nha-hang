@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ModalClientCheckIn.module.scss';
 import TextInput from '../../TextInput/TextInput';
@@ -6,9 +6,16 @@ import Button from '../../Button/Button';
 
 const cx = classNames.bind(styles);
 
-const ModalClientCheckIn = ({ children, className, onSubmit, onClick, notify, setNotify }) => {
+const ModalClientCheckIn = forwardRef(({ children, className, onSubmit, onClick, notify, setNotify }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenAnimation, setIsOpenAnimation] = useState(false);
+
+    useImperativeHandle(ref, () => ({
+        closeModal() {
+            handleOnChildren();
+        },
+    }));
+
     const handleOnChildren = () => {
         setIsOpenAnimation(!isOpenAnimation);
         onClick();
@@ -63,6 +70,6 @@ const ModalClientCheckIn = ({ children, className, onSubmit, onClick, notify, se
             )}
         </>
     );
-};
+});
 
 export default ModalClientCheckIn;

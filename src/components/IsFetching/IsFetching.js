@@ -12,6 +12,7 @@ import { getFoodOrderApi } from '~/services/foodOrder';
 import { io } from 'socket.io-client';
 import { getAllEmployee } from '~/services/employee';
 import { getToLocalStorage } from '~/utils/saveToBrowser';
+import Pusher from 'pusher-js';
 
 const cx = classNames.bind(styles);
 
@@ -23,41 +24,79 @@ const IsFetching = ({ data, children }) => {
 
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     let token = document.cookie;
+    //     let decode = decodeToken(token);
+
+    //     // if (decode?.job.find((e) => e === 'table')) {
+    //     //     socket?.on('table', (table) => {
+    //     //         dispatch(actions.updateTableUsing(table));
+    //     //     });
+    //     //     socket?.on('bill', (bill) => {
+    //     //         dispatch(actions.addNewBill(bill));
+    //     //     });
+    //     // }
+
+    //     // socket?.on('foodOrdered', (data) => {
+    //     //     dispatch(actions.addItemFO(data));
+    //     //     getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
+    //     // });
+
+    //     // socket?.on('foodServed', (data) => {
+    //     //     dispatch(actions.updateFO(data.foodOrdered));
+    //     //     dispatch(
+    //     //         actions.addNotification({
+    //     //             nameFood: data.nameFood,
+    //     //             nameTable: data.nameTable,
+    //     //             time: data.time,
+    //     //             read: false,
+    //     //             id_food: data.id_food,
+    //     //         }),
+    //     //     );
+    //     // });
+
+    //     // socket?.on('foodCancel', (data) => {
+    //     //     dispatch(actions.updateFO(data.foodOrdered.foodOrdered));
+    //     // });
+    // }, [socket]);
+
     useEffect(() => {
-        let token = document.cookie;
-        let decode = decodeToken(token);
-
-        if (decode?.job.find((e) => e === 'table')) {
-            socket?.on('table', (table) => {
-                dispatch(actions.updateTableUsing(table));
-            });
-            socket?.on('bill', (bill) => {
-                dispatch(actions.addNewBill(bill));
-            });
-        }
-
-        socket?.on('foodOrdered', (data) => {
-            dispatch(actions.addItemFO(data));
-            // getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
+        var pusher = new Pusher('4cae476ea6d452113730', {
+            cluster: 'ap1',
         });
+        var FO_Channel = pusher.subscribe('FO');
+        var bill_Channel = pusher.subscribe('bill');
+        var table_Channel = pusher.subscribe('table');
 
-        socket?.on('foodServed', (data) => {
-            dispatch(actions.updateFO(data.foodOrdered));
+        FO_Channel.bind('FO_order-event', function (data) {
+            dispatch(actions.addItemFO(data.food));
+            getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
+        });
+        FO_Channel.bind('FO_served-event', function (data) {
+            dispatch(actions.updateFO(data.foodOrdered.foodOrdered));
             dispatch(
                 actions.addNotification({
-                    nameFood: data.nameFood,
-                    nameTable: data.nameTable,
-                    time: data.time,
+                    nameFood: data.foodOrdered.nameFood,
+                    nameTable: data.foodOrdered.nameTable,
+                    time: data.foodOrdered.time,
                     read: false,
-                    id_food: data.id_food,
+                    id_food: data.foodOrdered.id_food,
                 }),
             );
         });
 
-        socket?.on('foodCancel', (data) => {
+        FO_Channel.bind('FO_cancel-event', function (data) {
             dispatch(actions.updateFO(data.foodOrdered));
         });
-    }, [socket]);
+
+        bill_Channel.bind('bill-event', function (data) {
+            dispatch(actions.addNewBill(data.bill));
+        });
+
+        table_Channel.bind('table-event', function (data) {
+            dispatch(actions.updateTableUsing(data.table));
+        });
+    }, []);
 
     useEffect(() => {
         let token = document.cookie;
@@ -90,7 +129,12 @@ const IsFetching = ({ data, children }) => {
 
         if (token) {
             setIsFetch(true);
-            setSocket(io('ws://localhost:8000'));
+            setSocket(
+                io('https://quan-ly-nha-hang-socket-io.vercel.app/', {
+                    autoConnect: false,
+                    reconnection: false,
+                }),
+            );
             const newPromises = [...new Set(promises)];
             Promise.all(newPromises).then((value) => {
                 setIsFetch(false);

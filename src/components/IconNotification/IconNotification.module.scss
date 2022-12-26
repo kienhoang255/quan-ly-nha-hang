@@ -6,7 +6,7 @@
 
 .tippy {
     gap: 20px;
-    height: 800px;
+    height: fit-content;
     overflow: hidden;
     overflow-y: auto;
     @include scrollBar($bgColor);

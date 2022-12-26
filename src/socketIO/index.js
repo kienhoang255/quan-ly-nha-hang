@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('ws://localhost:8000');
+const socket = io('https://quan-ly-nha-hang-socket-io.vercel.app/', { autoConnect: false, reconnection: false });
 
 export const postTable = (data) => socket.emit('table', data);
 

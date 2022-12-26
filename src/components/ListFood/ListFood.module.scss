@@ -42,6 +42,9 @@
     @include scrollBar($bgColor);
     @include window {
         grid-template-columns: 1fr 1fr 1fr;
-        max-height: calc(100vh - 140px);
+        max-height: calc(100vh - 18%);
+    }
+    @include bigWindow {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }

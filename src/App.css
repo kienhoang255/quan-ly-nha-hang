@@ -347,14 +347,34 @@ template {
     display: none;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 1179px) and (max-width: 1179px) {
+    .App::before {
+        content: 'We do not serve screen width or height less than 1180px';
+        color: #000;
+        position: absolute;
+        z-index: 1000;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media screen and (min-height: 1180px) and (orientation: portrait) {
     html {
         transform: rotate(-90deg);
         transform-origin: left top;
-        width: 100vh;
-        overflow-x: hidden;
+        /* width: 1190px; */
+        /* height: 809px; */
+        /* width: 100vh; */
+        /* height: 100vw; */
+        /* overflow-x: hidden; */
         position: absolute;
         top: 100%;
         left: 0;
+    }
+    .App::before {
+        display: none;
     }
 }

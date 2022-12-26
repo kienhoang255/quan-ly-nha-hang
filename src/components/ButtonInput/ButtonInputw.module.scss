@@ -12,6 +12,7 @@
 
 .normal {
     background-color: $primaryColor;
+    color: #000;
     @include btn($border-radius: 8px);
 }
 

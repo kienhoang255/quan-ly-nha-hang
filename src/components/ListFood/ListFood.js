@@ -62,7 +62,6 @@ const ListFood = ({
                         refsById={refsById}
                     />
                 ))}
-                <div>123</div>
             </div>
         </div>
     );

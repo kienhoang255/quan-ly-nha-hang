@@ -6,6 +6,9 @@
     @include centerDirection(column);
     justify-content: flex-start;
     overflow: hidden;
+    @include windowRotate {
+        @include fullScreenRotate;
+    }
 }
 .title {
     margin: 20px;

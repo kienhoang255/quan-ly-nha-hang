@@ -18,6 +18,12 @@
     }
 }
 
+@mixin windowRotate {
+    @media screen and (min-height: 1180px) and (orientation: portrait) {
+        @content;
+    }
+}
+
 @mixin bigWindow {
     @media screen and (min-width: 1201px) {
         @content;
@@ -69,6 +75,11 @@
 @mixin fullScreen {
     height: 100vh;
     width: 100vw;
+}
+
+@mixin fullScreenRotate {
+    height: 100vw;
+    width: 100vh;
 }
 
 @mixin fullScreenCenter($Direction: column) {

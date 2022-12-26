@@ -15,6 +15,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FaBars } from 'react-icons/fa';
 import { PAGES } from '~/routes';
 import Toast from '~/components/Toast';
+import Logo from '~/components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
@@ -89,6 +90,7 @@ const StaffLayout = () => {
                     />
                     {/* <IconNotification data={data} icon={<RiMessageFill />} /> */}
                 </div>
+                <Logo className={cx('logo')} />
                 <div className={cx('nav-bar-left')}>
                     <div onClick={HandleOpenSideBar} className={cx('nav-bar-btn', isSideBar ? 'rotate' : 'rotated')}>
                         <FaBars />

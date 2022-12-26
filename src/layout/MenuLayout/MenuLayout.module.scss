@@ -7,6 +7,9 @@
     justify-content: flex-start;
     overflow: hidden;
     max-height: 100vh;
+    @include windowRotate {
+        @include fullScreenRotate;
+    }
 }
 .title {
     margin: 20px;
