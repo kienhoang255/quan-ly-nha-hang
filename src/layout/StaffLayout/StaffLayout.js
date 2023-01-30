@@ -90,11 +90,11 @@ const StaffLayout = () => {
                     />
                     {/* <IconNotification data={data} icon={<RiMessageFill />} /> */}
                 </div>
-                <Logo className={cx('logo')} />
                 <div className={cx('nav-bar-left')}>
                     <div onClick={HandleOpenSideBar} className={cx('nav-bar-btn', isSideBar ? 'rotate' : 'rotated')}>
                         <FaBars />
                     </div>
+                    <Logo className={cx('logo')} />
                     {/* <div className={cx('text-input')}>
                         <TextInput placeholder={'Search...'} notify={''} type="text" LeftIcon={<AiOutlineSearch />} />
                     </div> */}

@@ -1,8 +1,8 @@
 @use '../../../assets/styles/' as *;
 
 .content {
-    width: 220px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
     background-color: $primaryBgColor;
     border: 1px solid $primaryColor;
     color: $primaryColor;
@@ -18,13 +18,13 @@
         color: $primaryBgColor;
     }
 
-    @include window {
-        width: 180px;
-    }
+    // @include window {
+    //     width: 180px;
+    // }
 
-    @include tablet {
-        width: 150px;
-    }
+    // @include tablet {
+    //     width: 150px;
+    // }
 }
 
 .num-table {

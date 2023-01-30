@@ -37,9 +37,10 @@
 
 .content {
     display: grid;
+    gap: 20px;
 
     @include bigWindow {
-        grid-template-columns: auto auto auto auto auto auto;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
     @include window {

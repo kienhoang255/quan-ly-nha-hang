@@ -24,6 +24,9 @@
 
     @include centerDirection;
     justify-content: space-between;
+    @include tablet {
+        width: 240px;
+    }
 }
 
 .feature {

@@ -349,12 +349,14 @@ template {
 
 @media screen and (max-width: 1179px) and (max-width: 1179px) {
     .App::before {
-        content: 'We do not serve screen width or height less than 1180px';
+        content: 'We do not serve devices screen width or height less than 1180px';
         color: #000;
         position: absolute;
+        left: auto;
+        right: auto;
         z-index: 1000;
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         background-color: white;
         display: flex;
         justify-content: center;
@@ -365,11 +367,9 @@ template {
     html {
         transform: rotate(-90deg);
         transform-origin: left top;
-        /* width: 1190px; */
-        /* height: 809px; */
-        /* width: 100vh; */
-        /* height: 100vw; */
-        /* overflow-x: hidden; */
+        width: 100vh;
+        height: 100vw;
+        overflow-x: hidden;
         position: absolute;
         top: 100%;
         left: 0;
