@@ -1,0 +1,25 @@
+@use '../../assets/styles/' as *;
+
+.content {
+    @include centerDirection;
+}
+
+.accountList {
+    @include centerDirection;
+    gap: 5px;
+}
+
+.accountItem {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    @include btn;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: $primaryBgColor;
+    color: $primaryColor;
+    width: 100%;
+}
+
+.title {
+    text-transform: uppercase;
+    font-weight: bold;
+}

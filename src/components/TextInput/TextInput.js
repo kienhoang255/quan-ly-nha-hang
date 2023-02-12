@@ -11,11 +11,13 @@ export default function TextInput({
     type,
     title,
     onClick,
+    onChange,
     className,
     notify,
     warn,
     danger,
     required,
+    value,
     defaultValue,
     placeholder,
     LeftIcon,
@@ -31,6 +33,7 @@ export default function TextInput({
 
     const props = {
         onClick,
+        onChange,
         ...passProps,
     };
 
@@ -54,6 +57,7 @@ export default function TextInput({
                         id={name}
                         placeholder={placeholder}
                         required={required}
+                        value={value}
                         defaultValue={defaultValue}
                     />
                     <div className={cx('rightIcon')} onClick={handleOpenPassword}>
@@ -79,6 +83,7 @@ export default function TextInput({
                                 id={name}
                                 placeholder={placeholder}
                                 required={required}
+                                value={value}
                                 defaultValue={defaultValue}
                             />
                             <div className={cx('rightIcon')}>{RightIcon}</div>

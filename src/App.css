@@ -378,3 +378,23 @@ template {
         display: none;
     }
 }
+
+/* customize */
+
+.tippy-box[data-theme~='main'] {
+    background-color: #ff720d;
+    color: black;
+}
+
+.tippy-box[data-theme~='main'][data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: #ff720d;
+}
+.tippy-box[data-theme~='main'][data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: #ff720d;
+}
+.tippy-box[data-theme~='main'][data-placement^='left'] > .tippy-arrow::before {
+    border-left-color: #ff720d;
+}
+.tippy-box[data-theme~='main'][data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: #ff720d;
+}

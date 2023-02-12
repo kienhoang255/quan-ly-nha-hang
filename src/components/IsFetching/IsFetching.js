@@ -69,10 +69,12 @@ const IsFetching = ({ data, children }) => {
         var table_Channel = pusher.subscribe('table');
 
         FO_Channel.bind('FO_order-event', function (data) {
+            console.log('data', data);
             dispatch(actions.addItemFO(data.food));
             getFoodOrderApi().then((res) => dispatch(actions.addFO(res)));
         });
         FO_Channel.bind('FO_served-event', function (data) {
+            console.log('data', data);
             dispatch(actions.updateFO(data.foodOrdered.foodOrdered));
             dispatch(
                 actions.addNotification({
@@ -86,15 +88,18 @@ const IsFetching = ({ data, children }) => {
         });
 
         FO_Channel.bind('FO_cancel-event', function (data) {
+            console.log('data', data);
             dispatch(actions.updateFO(data.foodOrdered));
         });
 
         bill_Channel.bind('bill-event', function (data) {
+            console.log('data', data);
             dispatch(actions.addNewBill(data.bill));
         });
 
         table_Channel.bind('table-event', function (data) {
             dispatch(actions.updateTableUsing(data.table));
+            console.log(data);
         });
     }, []);
 

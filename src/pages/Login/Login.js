@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import ButtonInput from '~/components/ButtonInput/ButtonInput';
@@ -10,11 +10,16 @@ import Toast from '~/components/Toast';
 import isEmpty from '~/validation/isEmpty';
 import isEmail from '~/validation/isEmail';
 import { isPhoneNumber } from '~/validation/isPhone';
+import SelectPopup from '~/components/SelectPopup/SelectPopup';
+import Button from '~/components/Button/Button';
+import { BsExclamationLg } from 'react-icons/bs';
+import { getToLocalStorage } from '~/utils/saveToBrowser';
 
 const cx = classNames.bind(styles);
 
 export default function Login() {
     const [showToast, setShowToast] = useState(false);
+    const [usedAccount, setUsedAccount] = useState();
     const [state, dispatch] = useStore();
 
     const [email, setEmail] = useState({
@@ -54,7 +59,7 @@ export default function Login() {
         else setPassword({ ...password, messageErr: '' });
 
         if (isEmptyEmail && isEmptyPassword && (checkPhone || isCorrectEmail)) {
-            login(passForm, dispatch);
+            login(passForm, dispatch, passForm);
             setShowToast(true);
             setTimeout(() => {
                 setShowToast(false);
@@ -62,27 +67,53 @@ export default function Login() {
         }
     };
 
+    useEffect(() => {
+        setUsedAccount(getToLocalStorage('usedAccount'));
+    }, []);
+
+    const onSelectAccount = (info) => {
+        setEmail({ ...email, value: info.email });
+        setPassword({ ...password, value: info.password });
+    };
     return (
         <div className={cx('container')}>
             <form className={cx('content')} onSubmit={handleOnSubmit}>
                 <Logo />
-                <TextInput type={email.type} name={email.name} title={email.title} notify={email.messageErr} danger />
+                <TextInput
+                    type={email.type}
+                    name={email.name}
+                    title={email.title}
+                    notify={email.messageErr}
+                    value={email.value}
+                    danger
+                    onChange={(e) => setEmail({ ...email, value: e.target.value })}
+                />
+
                 <TextInput
                     type={password.type}
                     name={password.name}
                     title={password.title}
                     notify={password.messageErr}
+                    value={password.value}
                     danger
+                    onChange={(e) => setPassword({ ...password, value: e.target.value })}
                 />
 
-                <div className={cx('feature')}>
-                    <input type="checkbox" id="rememberPS" name="checkbox" value="rememberPS" />
+                {/* <input onChange={(e) => setPassword({ ...password, value: e.target.value })} /> */}
+
+                {/* <div className={cx('feature')}>
+                    <input type="checkbox" id="rememberPS" name="checkbox" value="rememberPS"  />
                     <label htmlFor="rememberPS" id="rememberPS">
                         Nhớ mật khẩu
                     </label>
-                </div>
+                </div> */}
 
                 <ButtonInput value={'Đăng nhập'} />
+                <SelectPopup usedAccount={usedAccount} onSelectAccount={onSelectAccount}>
+                    <Button type="button" variant="circle" className={cx('hint')}>
+                        <BsExclamationLg />
+                    </Button>
+                </SelectPopup>
             </form>
             {showToast && <Toast message={state.MESSAGE.message} type={state.MESSAGE.type} />}
         </div>

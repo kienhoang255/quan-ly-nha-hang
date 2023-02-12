@@ -94,7 +94,9 @@ const StaffLayout = () => {
                     <div onClick={HandleOpenSideBar} className={cx('nav-bar-btn', isSideBar ? 'rotate' : 'rotated')}>
                         <FaBars />
                     </div>
-                    <Logo className={cx('logo')} />
+                    <Button to="/home" variant="">
+                        <Logo className={cx('logo')} />
+                    </Button>
                     {/* <div className={cx('text-input')}>
                         <TextInput placeholder={'Search...'} notify={''} type="text" LeftIcon={<AiOutlineSearch />} />
                     </div> */}

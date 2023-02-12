@@ -35,7 +35,7 @@ const Info = () => {
                     <span className={cx('check-in', { checkIn: true })}> Đã check in </span>
                 </div>
                 <div className={cx('main-info')}>
-                    <div className={cx('main-info-title')}>Profile</div>
+                    <div className={cx('main-info-title')}>Thông tin cá nhân</div>
                     <div className={cx('main-info-content')}>
                         <Label title={'Tên đầy đủ'}>{state.USER?.username}</Label>
                         <Label title={'Email'}>{state.USER?.email}</Label>
@@ -46,7 +46,7 @@ const Info = () => {
             </div>
             <div className={cx('sub')}>
                 <Button onClick={handleLogout} variant={'outline'} className={cx('sub-log')}>
-                    Log out
+                    Đăng xuất
                 </Button>
                 <Button onClick={handleCheckIn} variant={'normal'} className={cx('sub-check')}>
                     Check In

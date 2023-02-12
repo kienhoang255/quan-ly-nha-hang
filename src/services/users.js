@@ -3,7 +3,7 @@ import { actions } from '~/store';
 import { getToLocalStorage, removeItemFromLS, setToLocalStorage } from '~/utils/saveToBrowser';
 import { day, headers, hour, minute, month, URL, year } from './index';
 
-export const login = (data, dispatch) => {
+export const login = (data, dispatch, info) => {
     axios
         .post(`${URL}user/login`, data)
         .then((res) => {
@@ -11,6 +11,24 @@ export const login = (data, dispatch) => {
             document.cookie = `token=${res.data.createToken}`;
             window.location.reload(true);
             dispatch(actions.setMessage({ type: 'success', message: 'Đăng nhâp thành công' }));
+            const getInfo = getToLocalStorage('usedAccount');
+
+            const addNewInfo = () => {
+                let result = getInfo;
+                if (getInfo) {
+                    if (getInfo?.find((e) => e?.email === info?.email)) {
+                        getInfo?.map((prev) => {
+                            if (prev?.email === info.email) return info;
+                            else return prev;
+                        });
+                    } else {
+                        return [...getInfo, info];
+                    }
+                } else result = [info];
+                return result;
+            };
+
+            setToLocalStorage('usedAccount', addNewInfo());
         })
         .catch((err) => {
             dispatch(actions.setMessage({ type: 'error', message: 'Tài khoản/mật khẩu không chính xác' }));

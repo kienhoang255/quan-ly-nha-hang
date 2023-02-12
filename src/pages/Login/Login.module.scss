@@ -21,7 +21,7 @@
     width: 440px;
     height: 480px;
     padding: 50px;
-
+    position: relative;
     @include centerDirection;
     justify-content: space-between;
     @include tablet {
@@ -50,4 +50,10 @@
     input:focus {
         border: 1px solid $primaryColor;
     }
+}
+
+.hint {
+    position: absolute;
+    right: -50px;
+    bottom: 0;
 }

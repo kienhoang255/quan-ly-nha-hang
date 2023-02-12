@@ -1,0 +1,13 @@
+@use '../../assets/styles' as *;
+
+.container {
+    background-color: $secondaryBgColor;
+    @include fullScreen;
+    @include centerDirection(row);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 15px;
+}

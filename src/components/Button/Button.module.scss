@@ -28,6 +28,7 @@
     background-color: $primaryColor;
     color: #000;
     @include btn($border-radius: 8px);
+    text-decoration: none;
 }
 
 .outline {
@@ -50,6 +51,14 @@
     &:hover {
         background-color: $bgColor;
     }
+}
+
+.circle {
+    @include btn($border-radius: 50%);
+    height: 40px;
+    width: 40px;
+    background-color: $primaryColor;
+    color: #000;
 }
 
 .full {
